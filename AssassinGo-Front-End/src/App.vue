@@ -1,23 +1,41 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <Aside></Aside>
+    <router-view id="main"/>
   </div>
 </template>
 
 <script>
+import Aside from './components/Aside';
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Aside,
+  }
 }
 </script>
 
 <style>
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  width: 100%;
+}
+#main {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  padding-left: 120px;
 }
 </style>

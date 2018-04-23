@@ -1,0 +1,46 @@
+<template>
+    <TabBlock :Tab="Tab" v-show="show">
+        <div id="mapper">
+            <div class="sidemapper-container">
+                <iframe src="http://www.visualsitemapper.com/map/amyang.xyz#sideMap" frameborder="0" scrolling="no" marginheight="-200px" maiginweidth="-80px"></iframe>
+            </div>
+        </div>
+    </TabBlock>
+</template>
+
+<script>
+import TabBlock from './TabBlock'
+export default {
+    name: 'sidemapper',
+    components: {
+        TabBlock,
+    },
+    data() {
+        return {
+            show: true,
+            Tab: {
+                title: 'Attack',
+                subtitle: 'SideMapper',
+            }
+        }
+    },
+}
+</script>
+
+<style scoped>
+#mapper {
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+    margin: 20px 0;
+}
+.sidemapper-container {
+    height: 556px;
+    width: 100%;
+    margin: -156px 0 0 0px;
+}
+.sidemapper-container > iframe {
+    height: 100%;
+    width: 100%;
+}
+</style>

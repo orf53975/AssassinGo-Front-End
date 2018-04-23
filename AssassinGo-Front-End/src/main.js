@@ -3,7 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Ajax from './tools/ajax'
+import 'font-awesome/css/font-awesome.css'
+import '../static/css/base.css'
 
+Vue.use(Ajax);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
