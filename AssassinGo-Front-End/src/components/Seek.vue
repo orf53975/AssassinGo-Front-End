@@ -70,7 +70,7 @@ export default {
 <style scoped>
 .seek-container {
     width: 100%;
-    height: 507px;
+    height: 607px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

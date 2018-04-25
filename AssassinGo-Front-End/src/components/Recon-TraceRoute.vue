@@ -15,13 +15,13 @@
                 <div class="traceroute-top-item">Longitude</div>
             </div>
             <div class="traceroute-main">
-                <div class="traceroute-main-item" v-for="i in 10" :key="i">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
+                <div class="traceroute-main-item" v-for="item in traceRoute" :key="item.ttl">
+                    <div>{{item.ttl}}</div>
+                    <div>{{item.addr}}</div>
+                    <div>{{item.elapsed_time}}</div>
+                    <div>{{item.country}}</div>
+                    <div>{{item.lat}}</div>
+                    <div>{{item.long}}</div>
                 </div>
             </div>
         </div>
@@ -41,17 +41,18 @@ export default {
             Tab: {
                 title: 'Recon',
                 subtitle: 'traceroute',
-            }
+            },
+            traceRoute: [],
         }
     },
     methods: {
         drawLine () {
             //Polyline Config
-            let routePosition = [
-                new google.maps.LatLng(22.820385, 108.329952),
-                new google.maps.LatLng(34.129522, 108.840053),
-                new google.maps.LatLng(19.0621178835, -155.3027343750),
-            ];
+            let routePosition = [];
+            for(let i = 0; i < this.traceRoute.length; i++) {
+                let temp = new google.maps.LatLng(this.traceRoute[i].lat, this.traceRoute[i].long)
+                routePosition.push(temp);
+            }
             let polylineOptions = {
                 path: routePosition,
                 strokeColor: "rgb(0, 0, 0)",
@@ -89,17 +90,30 @@ export default {
             for(let i = 0; i < markers.length; i++) {
                 bound.extend(markers[i].getPosition());
             }
-
             //Draw Line
             routerLine.setMap(map);
             // marker.setMap(map);
             map.fitBounds(bound);
-        }
-    },
-    mounted () {
-        window.onload = () => {
+        },
+        getTraceRoute () {
+            const url = '/info/tracert';
+            this.ws(url, undefined, this.addTraceRoute);
+        },
+        addTraceRoute (data) {
+            this.traceRoute.push(data);
             this.drawLine();
         }
+    },
+    // watch: {
+    //     'google': () =>{
+    //         this.drawLine();
+    //     },
+    // },
+    mounted () {
+
+    },
+    created () {
+        this.getTraceRoute();
     }
 }
 </script>
@@ -117,7 +131,7 @@ export default {
     width: 100%;
 }
 .traceroute-table {
-    height: 175px;
+    height: 275px;
     width: 100%;
     box-sizing: border-box;
     padding: 0 20px;
@@ -145,7 +159,7 @@ export default {
     align-items: center;
 }
 .traceroute-main {
-    height: 127px;
+    height: 227px;
     width: 100%;
     overflow: auto;
 }

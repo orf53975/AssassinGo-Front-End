@@ -44,7 +44,7 @@ export default {
 
                 //定义Ajax相关常数
                 // const 是ES6的语法 用于定义不变的变量 但是定的对象里面的属性是可以改变的
-                const url = '/api/assassin';
+                const url = '/api/target';
                 const data = {
                     target: this.targetURL
                 };
@@ -54,6 +54,8 @@ export default {
                 this.ajax_post(url, data).then(response => {
                     //如果请求成功
                     if(response.flag == 1) {
+                        //本地储存tartget
+                        localStorage.setItem("target", data.target);
                         //$router为全局的路由，将/recon压进全局路由进行跳转
                         this.$router.push({
                             path: '/recon',
@@ -68,9 +70,23 @@ export default {
                 this.warningStatus = true;
             }
         },
+        /*
+         * 获取合法TOKEN，储存在本地供AJAX认证
+        */
+        // getToken () {
+        //     const url = '/token';
+        //     const data = {
+        //         username: 'ulin',
+        //         password: 'u1in',
+        //     };
+        //     this.ajax_post(url, data).then(response => {
+        //         console.log(response);
+        //     })
+        // }
     },
-    mounted () {
-
+    created () {
+        // this.getToken();
+        localStorage.setItem("SG_Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQ3ODM4MTUsInVzZXJuYW1lIjoiYWRtaW4ifQ.1jmVRYupAdJJdyb-CI9y_xErDgAYIxe3t41hEXEG_O0")
     }
 }
 </script>

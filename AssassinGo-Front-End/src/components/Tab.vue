@@ -66,7 +66,7 @@ export default {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 120px;
+    height: 80px;
     width: 100%;
     box-sizing: border-box;
     padding-left: 120px;
@@ -100,14 +100,14 @@ export default {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    padding-bottom: 120px;
+    padding-bottom: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .tab-main > i {
     color: black;
-    margin: 0 30px;
+    margin: 0 15px;
     cursor: pointer;
 }
 

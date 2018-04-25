@@ -7,7 +7,7 @@
             </div>
             <div>ip: {{ip}}</div>
             <div>server: {{server}}</div>
-            <div>cms: vue</div>
+            <div>cms: {{cms}}</div>
         </div>
         <div class="base-top-container-bottom">
             <div class="cross-line"></div>
@@ -18,43 +18,39 @@
                 <div class="base-whois-main">
                     <div>
                         <div>域名:</div>
-                        <div> example.com</div>
+                        <div>{{whois == "" ? "" : whois.domain}} </div>
                     </div>
                     <div>
                         <div>注册商:</div>
-                        <div>example, Inc</div>
+                        <div> {{whois == "" ? "" : whois.registrar_name}} </div>
                     </div>
                     <div>
                         <div>联系人:</div>
-                        <div>Example</div>
+                        <div>{{whois == "" ? "" : whois.admin_name}}</div>
                     </div>
                     <div>
                         <div>联系邮箱:</div>
-                        <div>example@example.com</div>
+                        <div>{{whois == "" ? "" : whois.admin_email}}</div>
                     </div>
                     <div>
                         <div>联系电话:</div>
-                        <div>12345678909</div>
+                        <div>{{whois == "" ? "" : whois.admin_phone}}</div>
                     </div>
                     <div>
                         <div>创建时间:</div>
-                        <div>2018年4月15日</div>
+                        <div>{{whois == "" ? "" : whois.created_date}}</div>
                     </div>
                     <div>
                         <div>过期时间:</div>
-                        <div>2019年4月15日</div>
-                    </div>
-                    <div>
-                        <div>公司:</div>
-                        <div>Example, Co. Ltd</div>
+                        <div>{{whois == "" ? "" : whois.expiration_date}}</div>
                     </div>
                     <div>
                         <div>DNS:</div>
-                        <div>DNS.EXAMPLE.COM</div>
+                        <div>{{whois == "" ? "" : whois.ns.split(',')[0]}}</div>
                     </div>
                     <div>
                         <div>状态:</div>
-                        <div>客户端禁止转移。</div>
+                        <div>{{whois == "" ? "" :  whois.state}}</div>
                     </div>
                 </div>
             </div>
@@ -63,12 +59,12 @@
                 <div class="base-port-scan-container">
                     <div class="base-port-scan-top">
                         <div>Port</div>
-                        <div>Server</div>
+                        <div>Service</div>
                     </div>
                     <div class="base-port-scan-main">
-                        <div class="base-port-scan-item" v-for="i in 10" :key="i">
-                            <div>0{{i}}</div>
-                            <div>0{{i}}</div>
+                        <div class="base-port-scan-item" v-for="port in ports" :key="port.port">
+                            <div>{{port.port}}</div>
+                            <div>{{port.service}}</div>
                         </div>
                     </div>
                 </div>
@@ -93,9 +89,22 @@ export default {
             },
             ip: "",
             server: "",
+            cms: "",
+            whois: "",
+            acceptPorts: [],
+        }
+    },
+    //计算属性 这里面存放的是数据类似data 但是这里的数据是动态生成的 譬如ports这个数组是根据acceptPorts排序后生成的
+    computed: {
+        ports () {
+            return this.acceptPorts.sort( (a,b) => {
+                //根据port端口大小从小到大排列
+                return parseInt(a.port) - parseInt(b.port);
+            });
         }
     },
     methods: {
+        //获取基本信息
         getBasic () {
             const url = '/api/info/basic';
             this.ajax_get(url).then(response => {
@@ -107,11 +116,43 @@ export default {
                     this.server = response.data.webserver;
                 }
             })
-        }
+        },
+        getCms () {
+            const url = '/api/info/cms';
+            this.ajax_get(url).then(response => {
+                if(response.flag == 1){
+                    this.cms = response.data.cms;
+                }
+            });
+        },
+        getWhoIs () {
+            const url = '/api/info/whois';
+            this.ajax_get(url).then(response => {
+                if(response.flag == 1) {
+                    this.whois = response.data;
+                }
+            })
+        },
+        //ws获取端口信息
+        getPortStatus () {
+            const url = '/info/port';
+            const  msg = {
+                method: "tcp",
+            };
+            this.ws(url, msg, this.addPortStatus);
+        },
+        //回调函数 当ws发来端口信息时的处理函数
+        addPortStatus (data) {
+            //acceptPorts是存放接受数据的数组，实际展示的时候需要用排序之后的数组。
+            this.acceptPorts.push(data);
+        },
     },
     created () {
         //created表示vue渲染的一个阶段，这个是比较早的阶段，建议在这个一开始的阶段就发出请求，减少等待。总之AJAX写在created里面就好了。
         this.getBasic();
+        this.getCms();
+        this.getWhoIs();
+        this.getPortStatus();
     }
 }
 </script>
@@ -158,6 +199,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 40px;
 }
 .base-whois {
     width: 400px;

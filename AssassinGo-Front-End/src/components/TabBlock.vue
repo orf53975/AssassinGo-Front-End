@@ -19,8 +19,8 @@
 
 <style scoped>
 .base-container {
-    height: 600px;
-    width: 1000px;
+    height: 700px;
+    width: 1200px;
     border-radius: 2px;
     box-shadow: 0 0 3px rgb(0, 0, 0);
     transform: translate3d(0, 0, 0);

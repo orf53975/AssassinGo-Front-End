@@ -4,10 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Ajax from './tools/ajax'
+import Websocket from './tools/websocket'
 import 'font-awesome/css/font-awesome.css'
 import '../static/css/base.css'
 
 Vue.use(Ajax);
+Vue.use(Websocket);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,18 +1,18 @@
 <template>
     <Tab>
-        <Inturder></Inturder>
+        <Intruder></Intruder>
         <SideMapper></SideMapper>
     </Tab>
 </template>
 
 <script>
 import Tab from '../components/Tab'
-import Inturder from '../components/Attack-inturder'
+import Intruder from '../components/Attack-intruder'
 import SideMapper from '../components/Attack-sidemapper'
 export default {
     components: {
         Tab,
-        Inturder,
+        Intruder,
         SideMapper,
     }
 }

@@ -16,19 +16,19 @@
                     </div>
                     <div class="aside-icon-name">Home</div>
                 </router-link>
-                <router-link tag="div" class="aside-icon-item" to="/recon">
+                <router-link tag="div" class="aside-icon-item" to="/recon" :style="{'cursor': cursor}">
                     <div class="aside-icon-svg">
                         <img src="../../static/icons/eyes.svg">
                     </div>
                     <div class="aside-icon-name">Recon</div>
                 </router-link>
-                <router-link tag="div" class="aside-icon-item" to="/attack">
+                <router-link tag="div" class="aside-icon-item" to="/attack"  :style="{'cursor': cursor}">
                     <div class="aside-icon-svg">
                         <img src="../../static/icons/sword.svg">
                     </div>
                     <div class="aside-icon-name">Attack</div>
                 </router-link>
-                <router-link tag="div" class="aside-icon-item" to="/seek">
+                <router-link tag="div" class="aside-icon-item" to="/seek"  :style="{'cursor': cursor}">
                     <div class="aside-icon-svg">
                         <img src="../../static/icons/search.svg">
                     </div>
@@ -53,7 +53,19 @@
 
 <script>
     export default {
-        
+        data() {
+            return {
+                target: localStorage.getItem("target"),
+            }
+        },
+        computed: {
+            cursor () {
+                return this.target == undefined ? "not-allowed" : "";
+            }
+        },
+        created () {
+            
+        }
     }
 </script>
 

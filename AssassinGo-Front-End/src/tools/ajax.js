@@ -1,4 +1,4 @@
-const base = 'http://amyang.xyz:8000';
+const base = 'http://localhost:8000';
 
 /* eslint-disable */
 export default {
@@ -20,6 +20,7 @@ export default {
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", base + url, true)
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+                xhr.setRequestHeader("Authorization", "SG_Token " + localStorage.getItem("SG_Token"));
                 xhr.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
@@ -51,6 +52,7 @@ export default {
                     var xhr = new XMLHttpRequest()
                     xhr.open("GET", base + url + dataString);
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+                    xhr.setRequestHeader("Authorization", "SG_Token "+localStorage.getItem("SG_Token"));
                     xhr.onreadystatechange = function () {
                         if (this.readyState === 4) {
                             if (this.status === 200) {

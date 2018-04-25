@@ -56,7 +56,7 @@ export default {
             show: true,
             Tab: {
                 title: 'Attack',
-                subtitle: 'inturder',
+                subtitle: 'intruder',
             }
         }
     },
@@ -76,7 +76,7 @@ export default {
 <style scoped>
 .inturder-container {
     width: 100%;
-    height: 507px;
+    height: 607px;
     display: flex;
     justify-content: space-around;
     align-items: center;
