@@ -1,4 +1,4 @@
-const base = "ws://localhost:8000/ws";
+const base = "ws://amyang.xyz:8000/ws";
 
 export default {
     install: function(Vue, options) {
@@ -11,10 +11,10 @@ export default {
                         ws.send(dataString);
                     }
                 }
-                console.log(`
-                    WebSocket On ${base + url}
-                    Data is ${dataString}
-                `);
+                // console.log(`
+                //     WebSocket On ${base + url}
+                //     Data is ${dataString}
+                // `);
                 ws.onmessage = (e) => {
                     success(JSON.parse(e.data));
                 };

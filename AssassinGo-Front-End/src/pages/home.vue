@@ -54,7 +54,7 @@ export default {
                 this.ajax_post(url, data).then(response => {
                     //如果请求成功
                     if(response.flag == 1) {
-                        //本地储存tartget
+                        //本地储存target
                         sessionStorage.setItem("target", data.target);
                         //$router为全局的路由，将/recon压进全局路由进行跳转
                         this.$router.push({
@@ -88,7 +88,6 @@ export default {
     },
     created () {
         this.getToken();
-        // sessionStorage.setItem("target", "ulin.coding.me");
         // this.setCookie("SG_Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQ4NTc2NDQsInVzZXJuYW1lIjoiYWRtaW4ifQ.oyQ1IbwaVABMpv8vvMIJ3QHuDi-52J-LfIIIE92m4NI", 3600);
     }
 }

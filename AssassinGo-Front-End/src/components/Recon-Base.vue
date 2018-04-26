@@ -1,8 +1,8 @@
 <template>
     <TabBlock :Tab="Tab" v-show="show">
         <div class="base-top-container">
-            <div class="base-probability">
-                <div>70</div>
+            <div class="base-probability" title="蜜罐指数">
+                <div>{{score}}</div>
                 <div class="percent">%</div>
             </div>
             <div>ip: {{ip}}</div>
@@ -91,6 +91,7 @@ export default {
             server: "",
             cms: "",
             whois: "",
+            score: 0,
             acceptPorts: [],
         }
     },
@@ -133,6 +134,14 @@ export default {
                 }
             })
         },
+        getHoneyPot () {
+            const url = '/api/info/honeypot';
+            this.ajax_get(url).then(response => {
+                if(response.flag == 1){
+                    this.score = Math.round(parseFloat(response.data.score) * 100);
+                }
+            })
+        },
         //ws获取端口信息
         getPortStatus () {
             const url = '/info/port';
@@ -152,6 +161,7 @@ export default {
         this.getBasic();
         this.getCms();
         this.getWhoIs();
+        this.getHoneyPot();
         this.getPortStatus();
     }
 }

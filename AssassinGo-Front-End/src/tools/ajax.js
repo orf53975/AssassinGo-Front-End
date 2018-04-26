@@ -1,4 +1,4 @@
-const base = 'http://localhost:8000';
+const base = 'http://amyang.xyz:8000';
 
 /* eslint-disable */
 export default {
@@ -11,11 +11,11 @@ export default {
                     dataString += `${i}=${data[i]}&`;
                 }
             }
-            console.log(`
-                myAjax On
-                url : ${base + url}
-                data : ${dataString}
-            `);
+            // console.log(`
+            //     myAjax On
+            //     url : ${base + url}
+            //     data : ${dataString}
+            // `);
             return new Promise((resolve, reject) => {
                 var xhr = new XMLHttpRequest();
                 xhr.withCredentials = true;
@@ -44,11 +44,11 @@ export default {
                         dataString += `${i}=${data[i]}&`;
                     }
                 }
-                console.log(`
-                    myAjax On
-                    url : ${base + url}
-                    data : ${dataString}
-                `);
+                // console.log(`
+                //     myAjax On
+                //     url : ${base + url}
+                //     data : ${dataString}
+                // `);
                 return new Promise((resolve, reject) => {
                     var xhr = new XMLHttpRequest();
                     xhr.withCredentials = true;

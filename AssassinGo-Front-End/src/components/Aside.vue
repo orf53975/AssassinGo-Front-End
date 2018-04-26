@@ -16,19 +16,19 @@
                     </div>
                     <div class="aside-icon-name">Home</div>
                 </router-link>
-                <router-link tag="div" class="aside-icon-item" to="/recon" :style="{'cursor': cursor}">
+                <router-link tag="div" class="aside-icon-item" to="/recon">
                     <div class="aside-icon-svg">
                         <img src="../../static/icons/eyes.svg">
                     </div>
                     <div class="aside-icon-name">Recon</div>
                 </router-link>
-                <router-link tag="div" class="aside-icon-item" to="/attack"  :style="{'cursor': cursor}">
+                <router-link tag="div" class="aside-icon-item" to="/attack">
                     <div class="aside-icon-svg">
                         <img src="../../static/icons/sword.svg">
                     </div>
                     <div class="aside-icon-name">Attack</div>
                 </router-link>
-                <router-link tag="div" class="aside-icon-item" to="/seek"  :style="{'cursor': cursor}">
+                <router-link tag="div" class="aside-icon-item" to="/seek">
                     <div class="aside-icon-svg">
                         <img src="../../static/icons/search.svg">
                     </div>
@@ -55,16 +55,9 @@
     export default {
         data() {
             return {
-                target: sessionStorage.getItem("target"),
-            }
-        },
-        computed: {
-            cursor () {
-                return this.target == undefined ? "not-allowed" : "";
             }
         },
         created () {
-            
         }
     }
 </script>

@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="inturder-header">
-                <textarea name="" id="header" class="inturder-header-textarea" placeholder="HTTP Header"></textarea>
+                <textarea name="" id="header" class="inturder-header-textarea" placeholder="HTTP Header" v-model="header"></textarea>
                 <div class="inturder-header-set">
                     <input type="text" placeholder="Add">
                     <input type="text" placeholder="GoOutTimes">
@@ -57,17 +57,50 @@ export default {
             Tab: {
                 title: 'Attack',
                 subtitle: 'intruder',
-            }
+            },
+            header: "",
+            selectSting: "",
+            selectStart: 0,
+            selectEnd: 0,
         }
     },
     mounted () {
         let textarea = document.getElementById('header');
-        textarea.addEventListener("mouseup", function() {
-            let text = window.getSelection();
-            if(text.toString().length > 1) {
-                console.log(text.toString());
-            }
-        })
+        textarea.addEventListener("mouseup", () => {
+            //取消选中的时候还会再获取一次选中内容，因为取消选中的事件在mouseup之后，所以用一下异步。
+            setTimeout( () => {
+                let text = window.getSelection();
+                let regExp = /^\$\$(.*?)\$\$$/;
+                let mode = (regExp.test(text.toString()));
+                if(text.toString().length > 1) {
+                    if(mode === true) {
+                        let temp = this.header.split('');
+                        console.log(`
+                        start: ${textarea.selectionStart}
+                        end: ${textarea.selectionEnd}
+                        before: ${temp}
+                        replaceString: ${(regExp.exec(text.toString()))[1]}
+                        `);
+                        console.log(regExp.exec(text.toString()));
+                        temp.splice(textarea.selectionStart, textarea.selectionEnd - textarea.selectionStart, (regExp.exec(text.toString()))[1]);
+                        console.log(temp);
+                        this.header = temp.join('');
+                    }
+                    else {
+                        let temp = this.header.split('');
+                        console.log(`
+                        start: ${textarea.selectionStart}
+                        end: ${textarea.selectionEnd}
+                        before: ${temp}
+                        replaceString: ${"$$"+text.toString()+"$$"}
+                        `);
+                        temp.splice(textarea.selectionStart, textarea.selectionEnd - textarea.selectionStart, "$$"+text.toString()+"$$");
+                        console.log(temp);
+                        this.header = temp.join('');
+                    }
+                }
+            }, 0);
+        });
     }
     
 }
