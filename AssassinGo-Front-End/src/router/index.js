@@ -38,7 +38,7 @@ route.beforeEach((to, from, next) => {
   let allow = ['home', 'contact'];
   if( allow.indexOf(to.name) < 0) {
     //验证本地储存
-    if(localStorage.getItem("target") == undefined) {
+    if(sessionStorage.getItem("target") == undefined) {
       //若无target信息则跳转到home
       route.push({path: '/home'});
     }

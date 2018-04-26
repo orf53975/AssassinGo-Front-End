@@ -55,7 +55,7 @@ export default {
                     //如果请求成功
                     if(response.flag == 1) {
                         //本地储存tartget
-                        localStorage.setItem("target", data.target);
+                        sessionStorage.setItem("target", data.target);
                         //$router为全局的路由，将/recon压进全局路由进行跳转
                         this.$router.push({
                             path: '/recon',
@@ -73,20 +73,23 @@ export default {
         /*
          * 获取合法TOKEN，储存在本地供AJAX认证
         */
-        // getToken () {
-        //     const url = '/token';
-        //     const data = {
-        //         username: 'ulin',
-        //         password: 'u1in',
-        //     };
-        //     this.ajax_post(url, data).then(response => {
-        //         console.log(response);
-        //     })
-        // }
+        getToken () {
+            const url = '/token';
+            const data = {
+                username: 'admin',
+                password: 'adminn',
+            };
+            this.ajax_post(url, data).then(response => {
+                if(response.flag == 1){
+                    // localStorage.setItem("SG_Token", response.data.SG_Token);
+                }
+            })
+        }
     },
     created () {
-        // this.getToken();
-        localStorage.setItem("SG_Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQ3ODM4MTUsInVzZXJuYW1lIjoiYWRtaW4ifQ.1jmVRYupAdJJdyb-CI9y_xErDgAYIxe3t41hEXEG_O0")
+        this.getToken();
+        // sessionStorage.setItem("target", "ulin.coding.me");
+        // this.setCookie("SG_Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQ4NTc2NDQsInVzZXJuYW1lIjoiYWRtaW4ifQ.oyQ1IbwaVABMpv8vvMIJ3QHuDi-52J-LfIIIE92m4NI", 3600);
     }
 }
 </script>

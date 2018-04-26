@@ -18,9 +18,10 @@ export default {
             `);
             return new Promise((resolve, reject) => {
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", base + url, true)
+                xhr.withCredentials = true;
+                xhr.open("POST", base + url, true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-                xhr.setRequestHeader("Authorization", "SG_Token " + localStorage.getItem("SG_Token"));
+                // xhr.setRequestHeader("Authorization", "SG_Token " + localStorage.getItem("SG_Token"));
                 xhr.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
@@ -49,10 +50,11 @@ export default {
                     data : ${dataString}
                 `);
                 return new Promise((resolve, reject) => {
-                    var xhr = new XMLHttpRequest()
+                    var xhr = new XMLHttpRequest();
+                    xhr.withCredentials = true;
                     xhr.open("GET", base + url + dataString);
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-                    xhr.setRequestHeader("Authorization", "SG_Token "+localStorage.getItem("SG_Token"));
+                    // xhr.setRequestHeader("Authorization", "SG_Token "+localStorage.getItem("SG_Token"));
                     xhr.onreadystatechange = function () {
                         if (this.readyState === 4) {
                             if (this.status === 200) {

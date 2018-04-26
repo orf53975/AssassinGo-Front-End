@@ -55,7 +55,7 @@
     export default {
         data() {
             return {
-                target: localStorage.getItem("target"),
+                target: sessionStorage.getItem("target"),
             }
         },
         computed: {
