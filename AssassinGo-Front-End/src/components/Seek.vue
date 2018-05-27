@@ -2,46 +2,58 @@
     <TabBlock :Tab="Tab">
         <div class="seek-container">
             <div class="seek-search-container">
-                <div class="seek-checkbox">
-                    <label for="checkbox">域名处理</label>
-                    <input type="checkbox" id="checkbox">
-                </div>
                 <div class="seek-select-container">
                     <i class="fa fa-angle-down fa-lg angle"></i>
                     <div class="seek-select">
-                        <i class="fa fa-google fa-lg"></i>
+                        <div class="seek-options" v-show="se == 'google'">
+                            <i class="fa fa-google fa-lg"></i>
+                        </div>
+                        <div class="seek-options bing-icon" v-show="se == 'bing'">
+                                <img src="../../static/images/bingIcon.jpeg">
+                        </div>
                         <div class="seek-options-container">
-                            <div class="seek-options">
-                                <i class="fa fa-paw fa-lg"></i>
+                            <div class="seek-options bing-icon" v-show="se != 'bing'" @click="changeSe('bing')">
+                                <img src="../../static/images/bingIcon.jpeg">
                             </div>
-                            <div class="seek-options">
-                                <i class="fa fa-git fa-lg"></i>
+                            <div class="seek-options" v-show="se != 'google'"  @click="changeSe('google')">
+                                <i class="fa fa-google fa-lg"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <input type="text" class="seek-search-input" placeholder="KeyWord">
-                <input type="text" class="seek-page-size-input" placeholder="PageSize">
-                <div class="seek-search">
+                <input type="text" class="seek-search-input" placeholder="KeyWord" v-model="keyword">
+                <input type="text" class="seek-page-size-input" placeholder="PageSize" v-model="pagesize">
+                <div class="seek-search" @click="doSeek">
                     搜索
                 </div>
-                <div class="seek-help">
+                <div class="seek-checkbox">
+                    <label for="checkbox">域名处理</label>
+                    <input type="checkbox" id="checkbox" v-model="checkbox">
+                </div>
+                <!-- <div class="seek-help">
                     <i class="fa fa-question-circle fa-lg"></i>
                     使用帮助
-                </div>
+                </div> -->
             </div>
-            <div class="warning">warning</div>
+            <div class="warning" v-show="warningStatus">warning</div>
             <div class="seek-result-container">
                 <div class="seek-result-top-container">
                     <div class="seek-result-id">id</div>
                     <div class="seek-result-url">url</div>
-                    <div class="seek-result-title">title</div>
+                    <!-- <div class="seek-result-title">title</div> -->
                 </div>
-                <div class="seek-result-main-container">
-                    <div class="seek-result-main-item" v-for="j in 10" :key="j">
-                        <div class="seek-result-id">{{j}}</div>
-                        <div class="seek-result-url">{{j}}</div>
-                        <div class="seek-result-title">{{j}}</div>
+                <div class="seek-result-main-container" v-show="checkbox == false">
+                    <div class="seek-result-main-item" v-for="(item, index) in urls" :key="index">
+                        <div class="seek-result-id">{{index+1}}</div>
+                        <div class="seek-result-url">{{item}}</div>
+                        <!-- <div class="seek-result-title">{{j}}</div> -->
+                    </div>
+                </div>
+                <div class="seek-result-main-container" v-show="checkbox == true">
+                    <div class="seek-result-main-item" v-for="(item, index) in hosts" :key="index">
+                        <div class="seek-result-id">{{index+1}}</div>
+                        <div class="seek-result-url">{{item}}</div>
+                        <!-- <div class="seek-result-title">{{j}}</div> -->
                     </div>
                 </div>
             </div>
@@ -61,9 +73,45 @@ export default {
             Tab: {
                 title: 'Seek',
                 subtitle: 'seek'
-            }
+            },
+            se: "bing",
+            keyword: "",
+            pagesize: "",
+            checkbox: true,
+            urls: [],
+            warningStatus: false,
         }
     },
+    computed: {
+        hosts () {
+            let temp = [];
+            for(let i in this.urls) {
+                temp.push(/^(http|https):\/\/[0-9a-zA-z\.]+\//.exec(this.urls[i])[0]);
+            }
+            console.log(temp);
+            return temp;
+        }
+    },
+    methods: {
+        changeSe(name) {
+            this.se = name;
+        },
+        doSeek () {
+            const url = "/seek";
+            const msg = {
+                query: this.keyword,
+                se: this.se,
+                max_page: parseInt(this.pagesize),
+            };
+            this.urls = [];
+            this.ws(url, msg, this.showSeek);
+        },
+        showSeek (data) {
+            for(let i in data.urls) {
+                this.urls.push(data.urls[i]);
+            }
+        }
+    }
 }
 </script>
 
@@ -138,7 +186,11 @@ export default {
 .seek-options-container {
     display: none;
 }
+.seek-options {
+    cursor: pointer;
+}
 .seek-search {
+    cursor: pointer;
     height: 50px;
     width: 80px;
     line-height: 50px;
@@ -160,7 +212,7 @@ export default {
     text-decoration: underline;
 }
 .seek-result-container {
-    height: 340px;
+    height: 540px;
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
@@ -186,7 +238,7 @@ export default {
 }
 .seek-result-main-container {
     width: 100%;
-    height: 280px;
+    height: 480px;
     box-sizing: border-box;
     overflow: auto;
 }
@@ -201,7 +253,23 @@ export default {
 .seek-result-title {
     height: 100%;
     flex-grow: 1;
+    max-width: 1100px;
     line-height: 50px;
-    text-align: center;
+    text-align: left;
+    word-break: break-all;
+    overflow: hidden;
+}
+.bing-icon {
+    height: 50px;
+    width: 25px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bing-icon > img {
+    height: auto;
+    width: 100%;
+    filter: grayscale(100%);
 }
 </style>

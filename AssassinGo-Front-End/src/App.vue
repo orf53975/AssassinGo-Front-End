@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Aside></Aside>
-    <router-view id="main"/>
+    <Aside :menu="menu"></Aside>
+    <router-view id="main" @menu="changeAside"/>
   </div>
 </template>
 
@@ -11,6 +11,16 @@ export default {
   name: 'App',
   components: {
     Aside,
+  },
+  data() {
+    return {
+      menu: "home",
+    }
+  },
+  methods: {
+    changeAside (msg) {
+      this.menu = msg;
+    }
   }
 }
 </script>
@@ -37,5 +47,7 @@ html, body {
   height: 100%;
   width: 100%;
   padding-left: 120px;
+  background: #FFFFFF url('../static/images/back.jpg') no-repeat;
+  background-size: cover;
 }
 </style>

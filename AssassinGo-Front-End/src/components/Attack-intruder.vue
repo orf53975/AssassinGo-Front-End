@@ -3,41 +3,41 @@
         <div class="inturder-container">
             <div class="inturder-result">
                 <div class="inturder-result-top-container">
-                    <div>id</div>
+                    <!-- <div>id</div> -->
                     <div class="inturder-result-top-payload">payload</div>
                     <div>status</div>
                     <div>length</div>
                 </div>
                 <div class="inturder-result-main">
-                    <div class="inturder-result-item" v-for="i in 15" :key="i">
-                        <div>{{i}}</div>
-                        <div class="inturder-result-top-payload">{{i}}</div>
-                        <div>{{i}}</div>
-                        <div>{{i}}</div>
+                    <div class="inturder-result-item" v-for="result in inturderResult" :key="result.payload">
+                        <!-- <div>{{i}}</div> -->
+                        <div class="inturder-result-top-payload">{{result.payload}}</div>
+                        <div>{{result.resp_status}}</div>
+                        <div>{{result.resp_len}}</div>
                     </div>
                 </div>
             </div>
             <div class="inturder-header">
                 <textarea name="" id="header" class="inturder-header-textarea" placeholder="HTTP Header" v-model="header"></textarea>
                 <div class="inturder-header-set">
-                    <input type="text" placeholder="Add">
-                    <input type="text" placeholder="GoOutTimes">
-                    <input type="text" placeholder="TimeOut">
+                    <input type="text" placeholder="Add Payload use , to separate" v-model="payload">
+                    <input type="text" placeholder="GoOutTimes" v-model="GoOutTimes">
+                    <!-- <input type="text" placeholder="TimeOut" v-model="TimeOut"> -->
                 </div>
                 <div class="inturder-header-button-group">
-                    <div class="inturder-header-button">
+                    <div class="inturder-header-button" @click="doInturder">
                         Do
                     </div>
-                    <div class="inturder-header-button">
+                    <div class="inturder-header-button" @click="stopInturder">
                         Stop
                     </div>
-                    <div class="line"></div>
+                    <!-- <div class="line"></div>
                     <div class="inturder-header-button">
                         Set
                     </div>
                     <div class="inturder-header-button">
                         Origin
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -59,9 +59,36 @@ export default {
                 subtitle: 'intruder',
             },
             header: "",
+            payload: "",
+            GoOutTimes: "",
+            TimeOut: "",
+            inturderResult: [],
             selectSting: "",
             selectStart: 0,
             selectEnd: 0,
+            thisws: "",
+        }
+    },
+    methods: {
+        doInturder() {
+            const url = '/attack/intrude';
+            const msg = {
+                header: this.header.replace(/\n/g,"\n"),
+                payload: this.payload.replace(/,/g,'\n'),
+                concurrency: parseInt(this.GoOutTimes)
+            };
+            this.inturderResult = [];
+            // console.log(msg);
+            this.thisws = this.ws(url, msg, this.showInturder);
+        },
+        showInturder (data) {
+            this.inturderResult.push(data);
+        },
+        stopInturder () {
+            const msg = {
+                stop: 1
+            }
+            this.thisws.send(JSON.stringify(msg));
         }
     },
     mounted () {
@@ -72,7 +99,7 @@ export default {
                 let text = window.getSelection();
                 let regExp = /^\$\$(.*?)\$\$$/;
                 let mode = (regExp.test(text.toString()));
-                if(text.toString().length > 1) {
+                if(text.toString().length >= 1) {
                     if(mode === true) {
                         let temp = this.header.split('');
                         console.log(`
@@ -175,7 +202,7 @@ export default {
     align-items: center;
 }
 .inturder-header-textarea {
-    height: 350px;
+    height: 450px;
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
@@ -188,11 +215,11 @@ export default {
     height: 80px;
     display: flex;
     /* flex-direction: column; */
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 .inturder-header-set > input {
-    width: 30%;
+    width: 47%;
     height: 40px;
     margin: 5px;
     box-sizing: border-box;

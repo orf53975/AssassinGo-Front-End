@@ -1,51 +1,66 @@
 <template>
-    <div class="aside-container">
+    <div class="aside-container" v-if="menu != 'login'">
         <div class="aside">
             <div class="aside-head-container">
-                <div class="aside-head-icon">
+                <div class="aside-head-icon" @click="jump2Login">
                     <img src="../../static/images/logo.jpg">
                 </div>
                 <div class="aside-head-name">
-                    AssassinGo
+                    Assassin<span>Go</span>
                 </div>
             </div>
             <div class="aside-icon-group">
                 <router-link tag="div" class="aside-icon-item" to="/home">
-                    <div class="aside-icon-svg">
+                    <div class="aside-icon-svg" v-if="menu == 'home'">
+                        <img src="../../static/icons/home2.svg">
+                    </div>
+                    <div class="aside-icon-svg" v-else>
                         <img src="../../static/icons/home.svg">
                     </div>
                     <div class="aside-icon-name">Home</div>
                 </router-link>
                 <router-link tag="div" class="aside-icon-item" to="/recon">
-                    <div class="aside-icon-svg">
+                    <div class="aside-icon-svg" v-if="menu == 'recon'">
+                        <img src="../../static/icons/eyes2.svg">
+                    </div>
+                    <div class="aside-icon-svg" v-else>
                         <img src="../../static/icons/eyes.svg">
                     </div>
                     <div class="aside-icon-name">Recon</div>
                 </router-link>
                 <router-link tag="div" class="aside-icon-item" to="/attack">
-                    <div class="aside-icon-svg">
+                    <div class="aside-icon-svg" v-if="menu == 'attack'">
+                        <img src="../../static/icons/sword2.svg">
+                    </div>
+                    <div class="aside-icon-svg" v-else>
                         <img src="../../static/icons/sword.svg">
                     </div>
                     <div class="aside-icon-name">Attack</div>
                 </router-link>
+                <router-link tag="div" class="aside-icon-item" to="/assassinate">
+                    <div class="aside-icon-svg" v-if="menu == 'assassinate'">
+                        <img src="../../static/icons/ghost2.svg">
+                    </div>
+                    <div class="aside-icon-svg" v-else>
+                        <img src="../../static/icons/ghost.svg">
+                    </div>
+                    <div class="aside-icon-name">Assassinate</div>
+                </router-link>
                 <router-link tag="div" class="aside-icon-item" to="/seek">
-                    <div class="aside-icon-svg">
+                    <div class="aside-icon-svg" v-if="menu == 'seek'">
+                        <img src="../../static/icons/search2.svg">
+                    </div>
+                    <div class="aside-icon-svg" v-else>
                         <img src="../../static/icons/search.svg">
                     </div>
                     <div class="aside-icon-name">Seek</div>
                 </router-link>
-                <div class="aside-icon-item">
-                    <div class="aside-icon-svg">
-                        <img src="../../static/icons/ghost.svg">
-                    </div>
-                    <div class="aside-icon-name">Assassinate</div>
-                </div>
-                <div class="aside-icon-item">
+                <!-- <div class="aside-icon-item">
                     <div class="aside-icon-svg">
                         <img src="../../static/icons/contact.svg">
                     </div>
                     <div class="aside-icon-name">Contact</div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -53,11 +68,22 @@
 
 <script>
     export default {
+        props: {
+            menu: String,
+        },
         data() {
             return {
             }
         },
+        methods: {
+            jump2Login () {
+                this.$router.push({
+                    path: "/login",
+                })
+            }
+        },
         created () {
+
         }
     }
 </script>
@@ -80,14 +106,13 @@
     width: 100%;
 }
 .aside-head-icon {
-    height: 80px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 20px;
+    height: 100px;
+    width: 120px;
+    cursor: pointer;
 }
 img {
     height: 100%;
-    width: 100%;
+    width: auto;
 }
 .aside-head-name {
     width: 100%;
@@ -97,6 +122,9 @@ img {
     font-weight: normal;
     word-wrap: break-word;
     margin: 10px 0;
+}
+.aside-head-name > span {
+    color: #e56845;
 }
 .aside-icon-group {
     width: 100%;
@@ -110,9 +138,11 @@ img {
     flex-direction: column;
     padding: 10px 0;
     cursor: pointer;
+    box-sizing: border-box;
 }
 .aside-icon-item:hover {
     background-color: rgb(245, 245, 245);
+    border-right: 3px solid #e56845;
 }
 .aside-icon-svg {
     height: 40px;

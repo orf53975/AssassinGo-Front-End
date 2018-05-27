@@ -23,8 +23,8 @@
     width: 1200px;
     border-radius: 2px;
     box-shadow: 0 0 3px rgb(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    animation: slip 1s cubic-bezier(.23,.97,1,1.11);
+    /* transform: translate3d(0, 0, 0); */
+    /* animation: slip 1s cubic-bezier(.23,.97,1,1.11); */
 }
 .base-title {
     font-size: 50px;
@@ -42,7 +42,7 @@
 .cross-line {
     height: 2px;
     width: 100%;
-    background: black;
+    background: #000000;
 }
 .base-subtitle {
     font-style: italic;
@@ -50,5 +50,6 @@
     position: absolute;
     background: white;
     padding: 0 10px;
+    color: #e56845;
 }
 </style>

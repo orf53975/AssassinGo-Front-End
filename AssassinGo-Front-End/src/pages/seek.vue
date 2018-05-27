@@ -12,6 +12,9 @@ export default {
         Tab,
         Seek,
     },
+    created () {
+        this.$emit("menu", "seek");
+    }
 }
 </script>
 

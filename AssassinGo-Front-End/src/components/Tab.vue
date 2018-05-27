@@ -70,7 +70,6 @@ export default {
     width: 100%;
     box-sizing: border-box;
     padding-left: 120px;
-    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,11 +88,11 @@ export default {
     cursor: pointer;
 }
 .tab-title > div.active {
-    background: black;
+    background: #e56845;
     color: white;
 }
 .tab-title > div:hover {
-    background: black;
+    background: #e56845;
     color: white;
 }
 .tab-main {
@@ -104,6 +103,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: white;
 }
 .tab-main > i {
     color: black;

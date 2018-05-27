@@ -2,15 +2,13 @@
     <TabBlock :Tab="Tab" v-show="show">
         <div class="base-top-container">
             <div class="base-probability" title="蜜罐指数">
+                <div class="probability-info">蜜罐指数</div>
                 <div>{{score}}</div>
                 <div class="percent">%</div>
             </div>
-            <div>ip: {{ip}}</div>
-            <div>server: {{server}}</div>
-            <div>cms: {{cms}}</div>
-        </div>
-        <div class="base-top-container-bottom">
-            <div class="cross-line"></div>
+            <div>ip: <span>{{ip}}</span></div>
+            <div>server: <span>{{server}}</span></div>
+            <div>cms: <span>{{cms}}</span></div>
         </div>
         <div class="base-main-container">
             <div class="base-whois">
@@ -148,6 +146,7 @@ export default {
             const  msg = {
                 method: "tcp",
             };
+            this.acceptPorts = [];
             this.ws(url, msg, this.addPortStatus);
         },
         //回调函数 当ws发来端口信息时的处理函数
@@ -175,11 +174,18 @@ export default {
     align-items: center;
     margin: 10px;
 }
+.base-top-container > div {
+    height: 100px;
+    width: 300px;
+    line-height: 100px;
+}
+.base-top-container > div > span {
+    color: #e56845;
+}
 .base-probability {
     height: 80px;
     width: 80px;
-    border-radius: 50%;
-    background: black;
+    background: #e56845;
     color: white;
     font-size: 30px;
     font-weight: lighter;
@@ -242,6 +248,9 @@ export default {
     justify-content: space-between;
     align-items: center;
 }
+.base-whois-main > div > div:last-of-type {
+    color: #e56845;
+}
 .base-port-scan {
     flex-grow: 1;
     height: 100%;
@@ -302,6 +311,7 @@ export default {
 }
 .base-port-scan-item:nth-child(2n) {
     background: rgb(221, 220, 220);
+    color: #e56845;
 }
 .base-port-scan-item > div {
     height: 40px;
@@ -314,5 +324,9 @@ export default {
     box-sizing: border-box;
     padding-left: 15px;
     text-align: left;
+}
+.probability-info {
+    font-size: 20px !important;
+    margin-right: 10px;
 }
 </style>

@@ -25,7 +25,7 @@ export default {
                 xhr.onreadystatechange = function () {
                     if (this.readyState === 4) {
                         if (this.status === 200) {
-                            resolve(JSON.parse(this.responseText), this)
+                            resolve(this.responseText == "" ? "" : JSON.parse(this.responseText), this)
                         } else {
                             var resJson = { code: this.status, response: this.response }
                             reject(resJson, this)

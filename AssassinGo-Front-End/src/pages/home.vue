@@ -2,15 +2,15 @@
     <div class="home-container">
         <div class="home-main-body">
             <div class="home-head-name">
-                {{ NAME }}
+                Assassin<span>Go</span>
             </div>
             <div class="warning" v-show="warningStatus">{{warningText}}</div>
             <div class="home-input-group">
-                <input type="text" class="home-input" autofocus v-model="targetURL">
+                <input type="text" class="home-input" autofocus v-model="targetURL" @keyup.enter="setTarget">
                 <div class="submit-button" @click="setTarget">Set Target</div>
             </div>
             <div class="home-head-name" style="visibility: hidden">
-                AssassinGo
+                Assassin<span>Go</span>
             </div>
         </div>
     </div>
@@ -70,25 +70,9 @@ export default {
                 this.warningStatus = true;
             }
         },
-        /*
-         * 获取合法TOKEN，储存在本地供AJAX认证
-        */
-        getToken () {
-            const url = '/token';
-            const data = {
-                username: 'admin',
-                password: 'adminn',
-            };
-            this.ajax_post(url, data).then(response => {
-                if(response.flag == 1){
-                    // localStorage.setItem("SG_Token", response.data.SG_Token);
-                }
-            })
-        }
     },
     created () {
-        this.getToken();
-        // this.setCookie("SG_Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQ4NTc2NDQsInVzZXJuYW1lIjoiYWRtaW4ifQ.oyQ1IbwaVABMpv8vvMIJ3QHuDi-52J-LfIIIE92m4NI", 3600);
+        this.$emit("menu", "home");
     }
 }
 </script>
@@ -99,7 +83,6 @@ export default {
     color: brown;
 }
 .home-container {
-    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,6 +90,9 @@ export default {
 .home-head-name {
     font-size: 44px;
     color: black;
+}
+.home-head-name > span {
+    color: #e56845;
 }
 .home-input {
     height: 50px;
@@ -117,6 +103,7 @@ export default {
     box-sizing: border-box;
     padding-left: 10px;
     border: 1px solid gray;
+    border-right: none;
 }
 .home-input:focus {
     outline: none;
@@ -137,12 +124,13 @@ export default {
     line-height: 50px;
     text-align: center;
     border: 1px solid gray;
-    border-left: none;
     cursor: pointer;
-    transition:  all .5s linear;
+    /* transition:  all .5s linear; */
+    background: white;
 }
 .submit-button:hover {
-    background: black;
+    background: #e56845;
     color: white;
+    border: none;
 }
 </style>
