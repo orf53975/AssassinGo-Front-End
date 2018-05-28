@@ -2,8 +2,8 @@
     <TabBlock :Tab="Tab" v-show="show">
         <div class="xss-container">
             <div class="xss-table-top">
-                <div>id</div>
-                <div>url</div>
+                <div>#</div>
+                <div>URL</div>
             </div>
             <div class="xss-table-main">
                 <div  class="xss-table-item" v-for="(item, index) in urls" :key="index">
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            show: true,
+            show: false,
             Tab: {
                 title: 'Attack',
                 subtitle: 'xss',
@@ -45,8 +45,12 @@ export default {
             this.urls.push(data.xssi_url);
         }
     },
-    mounted () {
-        this.showXss();
+    watch: {
+        show: function () {
+            if(this.show == true) {
+                this.showXss();
+            }
+        }
     }
 }
 </script>
@@ -66,8 +70,10 @@ export default {
     justify-content: flex-start;
     align-items: center;
     background: white;
-    box-shadow: 0 0 5px gray;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid gray;
+    color: gray;
+    font-weight: bold;
 }
 .xss-table-top > div:last-of-type {
     height: 100%;
@@ -87,6 +93,9 @@ export default {
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
+}
+.xss-table-item:nth-of-type(2n) {
+    background: rgb(220, 220, 220);
 }
 .xss-table-item > div:last-of-type {
     height: 100%;

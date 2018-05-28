@@ -4,9 +4,9 @@
             <div class="inturder-result">
                 <div class="inturder-result-top-container">
                     <!-- <div>id</div> -->
-                    <div class="inturder-result-top-payload">payload</div>
-                    <div>status</div>
-                    <div>length</div>
+                    <div class="inturder-result-top-payload">PAYLOAD</div>
+                    <div>STATUS</div>
+                    <div>LENGTH</div>
                 </div>
                 <div class="inturder-result-main">
                     <div class="inturder-result-item" v-for="result in inturderResult" :key="result.payload">
@@ -26,10 +26,10 @@
                 </div>
                 <div class="inturder-header-button-group">
                     <div class="inturder-header-button" @click="doInturder">
-                        Do
+                        DO
                     </div>
                     <div class="inturder-header-button" @click="stopInturder">
-                        Stop
+                        STOP
                     </div>
                     <!-- <div class="line"></div>
                     <div class="inturder-header-button">
@@ -47,13 +47,13 @@
 <script>
 import TabBlock from './TabBlock'
 export default {
-    name: 'inturder',
+    name: 'Inturder',
     components: {
         TabBlock,
     },
     data () {
         return {
-            show: true,
+            show: false,
             Tab: {
                 title: 'Attack',
                 subtitle: 'intruder',
@@ -78,7 +78,6 @@ export default {
                 concurrency: parseInt(this.GoOutTimes)
             };
             this.inturderResult = [];
-            // console.log(msg);
             this.thisws = this.ws(url, msg, this.showInturder);
         },
         showInturder (data) {
@@ -108,21 +107,21 @@ export default {
                         before: ${temp}
                         replaceString: ${(regExp.exec(text.toString()))[1]}
                         `);
-                        console.log(regExp.exec(text.toString()));
+                        // console.log(regExp.exec(text.toString()));
                         temp.splice(textarea.selectionStart, textarea.selectionEnd - textarea.selectionStart, (regExp.exec(text.toString()))[1]);
-                        console.log(temp);
+                        // console.log(temp);
                         this.header = temp.join('');
                     }
                     else {
                         let temp = this.header.split('');
-                        console.log(`
+                        /* console.log(`
                         start: ${textarea.selectionStart}
                         end: ${textarea.selectionEnd}
                         before: ${temp}
                         replaceString: ${"$$"+text.toString()+"$$"}
-                        `);
+                        `);*/
                         temp.splice(textarea.selectionStart, textarea.selectionEnd - textarea.selectionStart, "$$"+text.toString()+"$$");
-                        console.log(temp);
+                        // console.log(temp);
                         this.header = temp.join('');
                     }
                 }
@@ -158,8 +157,10 @@ export default {
     justify-content: space-between;
     align-items: center;
     background: white;
-    box-shadow: 0 0 5px gray;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid gray;
+    color: gray;
+    font-weight: bold;
 }
 .inturder-result-top-payload {
     flex-grow: 1 !important;
@@ -255,5 +256,6 @@ export default {
     background: rgb(56, 175, 155);
     color: white;
     margin: 0 10px;
+    cursor: pointer;
 }
 </style>

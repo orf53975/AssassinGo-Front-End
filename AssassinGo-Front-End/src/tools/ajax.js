@@ -1,4 +1,4 @@
-const base = 'http://amyang.xyz:8000';
+const base = 'http://assassin-go.ink';
 
 /* eslint-disable */
 export default {

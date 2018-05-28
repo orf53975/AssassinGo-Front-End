@@ -108,6 +108,7 @@ export default {
 .home-input:focus {
     outline: none;
     border: 1px solid gray;
+    border-right: none;
 }
 .home-input-group {
     display: flex;

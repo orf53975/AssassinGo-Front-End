@@ -1,4 +1,4 @@
-const base = "ws://amyang.xyz:8000/ws";
+const base = "ws://assassin-go.ink/ws";
 
 export default {
     install: function(Vue, options) {

@@ -10,10 +10,10 @@
             <div class="traceroute-top">
                 <div class="traceroute-top-item">TTL</div>
                 <div class="traceroute-top-item">ADDR</div>
-                <div class="traceroute-top-item">Elapsed Time</div>
-                <div class="traceroute-top-item">Country</div>
-                <div class="traceroute-top-item">Latitude</div>
-                <div class="traceroute-top-item">Longitude</div>
+                <div class="traceroute-top-item">ELAPSED TIME</div>
+                <div class="traceroute-top-item">COUNTRY</div>
+                <div class="traceroute-top-item">LATITUDE</div>
+                <div class="traceroute-top-item">LONGITUDE</div>
             </div>
             <div class="traceroute-main">
                 <div class="traceroute-main-item" v-for="item in sortTraceRoute" :key="item.ttl">
@@ -38,7 +38,7 @@ export default {
     },
     data() {
         return {
-            show: true,
+            show: false,
             Tab: {
                 title: 'Recon',
                 subtitle: 'traceroute',
@@ -125,12 +125,16 @@ export default {
             });
         },
     },
+    watch: {
+        show: function () {
+            if(this.show == true) {
+                this.getTraceRoute();
+            }
+        }
+    },
     mounted () {
         this.createMap();
     },
-    created () {
-        this.getTraceRoute();
-    }
 }
 </script>
 
@@ -163,8 +167,8 @@ export default {
     justify-content: flex-start;
     align-items: center;
     overflow: auto;
-    box-shadow: 0 0 3px gray;
     margin-bottom: 2px;
+    border-bottom: 2px solid gray;
 }
 .traceroute-top-item {
     min-width: 120px;
@@ -173,11 +177,16 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: gray;
+    font-weight: bold;
 }
 .traceroute-main {
     height: 227px;
     width: 100%;
     overflow: auto;
+}
+.traceroute-main > div:nth-of-type(2n) {
+    background: rgb(220, 220, 220);
 }
 .traceroute-main-item {
     height: 45px;

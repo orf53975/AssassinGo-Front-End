@@ -2,8 +2,8 @@
     <TabBlock :Tab="Tab" v-show="show">
         <div class="ssh-container">
             <div class="ssh-table-top">
-                <div>id</div>
-                <div>url</div>
+                <div>#</div>
+                <div>URL</div>
             </div>
             <div class="ssh-table-main">
                 <div  class="ssh-table-item" v-for="(item, index) in results" :key="index">
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            show: true,
+            show: false,
             Tab: {
                 title: 'Attack',
                 subtitle: 'ssh',
@@ -48,8 +48,12 @@ export default {
             this.results.push(data);
         }
     },
-    mounted () {
-        this.showSsh();
+    watch: {
+        show: function () {
+            if(this.show == true) {
+                this.showSsh();
+            }
+        }
     }
 }
 </script>
@@ -69,8 +73,10 @@ export default {
     justify-content: flex-start;
     align-items: center;
     background: white;
-    box-shadow: 0 0 5px gray;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid gray;
+    color: gray;
+    font-weight: bold;
 }
 .ssh-table-top > div:last-of-type {
     height: 100%;
@@ -90,6 +96,9 @@ export default {
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
+}
+.ssh-table-item:nth-of-type(2n) {
+    background: rgb(220, 220, 220);
 }
 .ssh-table-item > div:last-of-type {
     height: 100%;

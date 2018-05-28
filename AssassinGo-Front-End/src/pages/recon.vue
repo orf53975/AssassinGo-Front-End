@@ -2,7 +2,7 @@
     <Tab>
         <ReconBase></ReconBase>
         <ReconTraceRoute></ReconTraceRoute>
-        <ReconSideMapper></ReconSideMapper>
+        <ReconSiteMap></ReconSiteMap>
         <ReconDirb></ReconDirb>
         <ReconSubdomain></ReconSubdomain>
     </Tab>
@@ -12,7 +12,7 @@
 import Tab from '../components/Tab'
 import ReconBase from '../components/Recon-Base'
 import ReconTraceRoute from '../components/Recon-TraceRoute'
-import ReconSideMapper from '../components/Recon-SideMapper'
+import ReconSiteMap from '../components/Recon-SiteMap'
 import ReconDirb from '../components/Recon-DirB'
 import ReconSubdomain from '../components/Recon-Subdomain'
 export default {
@@ -20,7 +20,7 @@ export default {
         Tab,
         ReconBase,
         ReconTraceRoute,
-        ReconSideMapper,
+        ReconSiteMap,
         ReconDirb,
         ReconSubdomain,
     },

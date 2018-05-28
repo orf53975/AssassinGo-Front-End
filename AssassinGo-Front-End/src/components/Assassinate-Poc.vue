@@ -2,48 +2,48 @@
     <TabBlock :Tab="Tab">
         <div class="poc-container">
             <div class="poc-search-container">
-                <input type="text" class="poc-search-input" placeholder="Target" v-model="target">
+                <input type="text" class="poc-search-input" placeholder="TARGET" v-model="target">
                 <select class="poc-page-size-input" v-model="poc">
-                    <option value="" selected disabled>请选择POC</option>
+                    <option value="" selected disabled>CHOOSE POC</option>
                     <option v-for="(value, key) in pocs" :key="key" :value="key">{{key}}</option>
                 </select>
                 <div class="poc-search" @click="doPoc">
-                    攻击
+                    ATTACK
                 </div>
             </div>
             <div class="result-container">
                 <div class="poc-info-container">
-                    <div class="poc-title">poc详细信息</div>
+                    <div class="poc-title">POC INFO</div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Date</div>
-                        <div>{{pocs[poc].date}}</div>
+                        <div>{{pocs[poc].date == "" ? "Unknown" : pocs[poc].date}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>ID</div>
-                        <div>{{pocs[poc].id}}</div>
+                        <div>{{pocs[poc].id == "" ? "Unknown" : pocs[poc].id}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Platform</div>
-                        <div>{{pocs[poc].platform}}</div>
+                        <div>{{pocs[poc].platform == "" ? "Unknown" : pocs[poc].platform}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Reference</div>
-                        <div>{{pocs[poc].reference}}</div>
+                        <div>{{pocs[poc].reference == "" ? "Unknown" : pocs[poc].reference}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Text</div>
-                        <div>{{pocs[poc].text}}</div>
+                        <div>{{pocs[poc].text == "" ? "Unknown" : pocs[poc].text}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Type</div>
-                        <div>{{pocs[poc].type}}</div>
+                        <div>{{pocs[poc].type == "" ? "Unknown" : pocs[poc].type}}</div>
                     </div>
                 </div>
                 <div class="poc-result-container">
                     <div class="poc-result-top-container">
-                        <div class="poc-result-id">id</div>
-                        <div class="poc-result-url">url</div>
-                        <div class="poc-result-status">status</div>
+                        <div class="poc-result-id">#</div>
+                        <div class="poc-result-url">URL</div>
+                        <div class="poc-result-status">STATUS</div>
                     </div>
                     <div class="poc-result-main-container">
                         <div class="poc-result-main-item" v-for="(item, index) in result" :key="index">
@@ -68,6 +68,7 @@ export default {
     },
     data() {
         return {
+            show: false,
             Tab: {
                 title: 'Assassinate',
                 subtitle: 'poc'
@@ -92,7 +93,6 @@ export default {
                         // this.pocs[i] = data.data.poc_list[i];
                     }
                 }
-                console.log(this.pocs);
             });
         },
         doPoc () {
@@ -106,7 +106,6 @@ export default {
                     targets: this.target
                 };
                 this.ajax_post(url1, data).then(data => {
-                    console.log(data);
                 });
                 const msg = {
                     concurrency: 10,
@@ -118,7 +117,6 @@ export default {
                     target: this.target
                 };
                 this.ajax_post(url1, data).then(data => {
-                    console.log(data);
                 });
                 const msg = {
 
@@ -127,7 +125,7 @@ export default {
                     if(data.flag == 1) {
                         this.result.push(data.data);
                     }
-                    console.log(this.result);
+
                 })
             }
         },
@@ -135,8 +133,12 @@ export default {
             this.result.push(data);
         }
     },
-    mounted () {
-        this.getPoc();
+    watch: {
+        show: function () {
+            if(this.show == true) {
+                this.getPoc();
+            }
+        }
     }
 }
 </script>
@@ -157,6 +159,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.poc-search-container > select {
+    cursor: pointer;
 }
 .poc-select-container {
     height: 50px;
@@ -197,7 +202,7 @@ export default {
     font-size: 16px;
 }
 .poc-page-size-input {
-    width: 120px;
+    width: 200px;
     border-left: none;
 }
 .poc-search-input:focus {
@@ -256,7 +261,13 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    box-shadow: 0 0 2px gray;
+    
+}
+.poc-result-top-container {
+    margin-bottom: 10px;
+    border-bottom: 2px solid gray;
+    color: gray;
+    font-weight: bold;
 }
 .poc-result-main-item {
     box-shadow: none;
@@ -303,7 +314,10 @@ export default {
     height: 50px;
     line-height: 50px;
     width: 100%;
-    box-shadow: 0 0 2px gray;
+    border-bottom: 2px solid gray;
+    color: gray;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 .poc-info-item {
     min-height: 50px;

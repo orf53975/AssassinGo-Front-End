@@ -24,10 +24,10 @@
                 <input type="text" class="seek-search-input" placeholder="KeyWord" v-model="keyword">
                 <input type="text" class="seek-page-size-input" placeholder="PageSize" v-model="pagesize">
                 <div class="seek-search" @click="doSeek">
-                    搜索
+                    SEARCH
                 </div>
                 <div class="seek-checkbox">
-                    <label for="checkbox">域名处理</label>
+                    <label for="checkbox">Domain Treatment</label>
                     <input type="checkbox" id="checkbox" v-model="checkbox">
                 </div>
                 <!-- <div class="seek-help">
@@ -38,8 +38,8 @@
             <div class="warning" v-show="warningStatus">warning</div>
             <div class="seek-result-container">
                 <div class="seek-result-top-container">
-                    <div class="seek-result-id">id</div>
-                    <div class="seek-result-url">url</div>
+                    <div class="seek-result-id">#</div>
+                    <div class="seek-result-url">URL</div>
                     <!-- <div class="seek-result-title">title</div> -->
                 </div>
                 <div class="seek-result-main-container" v-show="checkbox == false">
@@ -70,6 +70,7 @@ export default {
     },
     data() {
         return {
+            show: false,
             Tab: {
                 title: 'Seek',
                 subtitle: 'seek'
@@ -88,7 +89,6 @@ export default {
             for(let i in this.urls) {
                 temp.push(/^(http|https):\/\/[0-9a-zA-z\.]+\//.exec(this.urls[i])[0]);
             }
-            console.log(temp);
             return temp;
         }
     },
@@ -228,13 +228,19 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    box-shadow: 0 0 2px gray;
 }
 .seek-result-top-container {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid gray;
+    color: gray;
+    font-weight: bold;
 }
 .seek-result-main-item {
     box-shadow: none;
+}
+.seek-result-main-item:nth-of-type(2n) {
+    background: rgb(220, 220, 220);
+    color: #e56845;
 }
 .seek-result-main-container {
     width: 100%;

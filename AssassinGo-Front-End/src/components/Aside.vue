@@ -106,13 +106,21 @@
     width: 100%;
 }
 .aside-head-icon {
-    height: 100px;
+    height: 120px;
     width: 120px;
+    overflow: hidden;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.aside-head-icon > img {
+    height: 120%;
+    width: 120%;
 }
 img {
     height: 100%;
-    width: auto;
+    width: 100%;
 }
 .aside-head-name {
     width: 100%;

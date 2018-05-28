@@ -2,8 +2,8 @@
     <TabBlock :Tab="Tab" v-show="show">
         <div class="crawler-container">
             <div class="crawler-table-top">
-                <div>id</div>
-                <div>url</div>
+                <div>#</div>
+                <div>URL</div>
             </div>
             <div class="crawler-table-main">
                 <div  class="crawler-table-item" v-for="(item, index) in urls" :key="index">
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            show: true,
+            show: false,
             Tab: {
                 title: 'Attack',
                 subtitle: 'crawler',
@@ -45,8 +45,12 @@ export default {
             this.urls.push(data.url);
         }
     },
-    mounted () {
-        this.showCrawler();
+    watch: {
+        show: function () {
+            if(this.show == true) {
+                this.showCrawler();
+            }
+        }
     }
 }
 </script>
@@ -66,8 +70,10 @@ export default {
     justify-content: flex-start;
     align-items: center;
     background: white;
-    box-shadow: 0 0 5px gray;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom:  2px solid gray;
+    color: gray;
+    font-weight: bold;
 }
 .crawler-table-top > div:last-of-type {
     height: 100%;
@@ -87,6 +93,9 @@ export default {
     justify-content: flex-start;
     align-items: center;
     word-break: break-all;
+}
+.crawler-table-item:nth-of-type(2n) {
+    background: rgb(220, 220, 220);
 }
 .crawler-table-item > div:last-of-type {
     height: 100%;

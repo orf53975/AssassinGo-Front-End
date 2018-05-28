@@ -2,8 +2,8 @@
     <TabBlock :Tab="Tab" v-show="show">
         <div class="subdomain-container">
             <div class="subdomain-table-top">
-                <div>id</div>
-                <div>url</div>
+                <div>#</div>
+                <div>URL</div>
             </div>
             <div class="subdomain-table-main">
                 <div  class="subdomain-table-item" v-for="(item, index) in subdomains" :key="index">
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            show: true,
+            show: false,
             Tab: {
                 title: 'Recon',
                 subtitle: 'subdomain',
@@ -45,8 +45,12 @@ export default {
             this.subdomains.push(data.subdomain);
         }
     },
-    mounted () {
-        this.showSubdomain();
+    watch: {
+        show: function () {
+            if(this.show == true) {
+                this.showSubdomain();
+            }
+        }
     }
 }
 </script>
@@ -67,14 +71,19 @@ export default {
     justify-content: flex-start;
     align-items: center;
     background: white;
-    box-shadow: 0 0 5px gray;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid gray;
+    color: gray;
+    font-weight: bold;
 }
 .subdomain-table-top > div:last-of-type {
     height: 100%;
 }
 .subdomain-table-top > div:first-of-type {
     width: 100px;
+}
+.subdomain-table-item:nth-of-type(2n) {
+    background: rgb(220, 220, 220);
 }
 .subdomain-table-main {
     height: 447px;
