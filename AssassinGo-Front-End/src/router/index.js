@@ -54,7 +54,7 @@ route.beforeEach((to, from, next) => {
     if (allow.indexOf(to.name) < 0) {
       //验证本地储存
       if (sessionStorage.getItem("target") == undefined) {
-        alert('请先设置目标');
+        alert('Set Target First');
         //若无target信息则跳转到home
         route.push({ path: '/home' });
       }

@@ -21,7 +21,7 @@
                 <textarea name="" id="header" class="inturder-header-textarea" placeholder="HTTP Header" v-model="header"></textarea>
                 <div class="inturder-header-set">
                     <input type="text" placeholder="Add Payload use , to separate" v-model="payload">
-                    <input type="text" placeholder="GoOutTimes" v-model="GoOutTimes">
+                    <input type="text" placeholder="Goroutines" v-model="GoOutTimes">
                     <!-- <input type="text" placeholder="TimeOut" v-model="TimeOut"> -->
                 </div>
                 <div class="inturder-header-button-group">

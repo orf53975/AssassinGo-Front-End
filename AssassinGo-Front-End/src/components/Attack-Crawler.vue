@@ -61,6 +61,7 @@ export default {
     height: 607px;
     box-sizing: border-box;
     padding: 50px;
+    overflow: auto;
 }
 .crawler-table-top {
     height: 60px;
@@ -101,6 +102,8 @@ export default {
     height: 100%;
     flex-grow: 1;
     text-align: left;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 .crawler-table-item > div:first-of-type {
     width: 100px;

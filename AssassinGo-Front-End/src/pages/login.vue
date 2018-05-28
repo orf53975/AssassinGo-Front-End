@@ -6,9 +6,9 @@
             </div>
             <div class="login-container">
                 <h1>AssassinGo Login</h1>
-                <input type="text" placeholder="用户名" v-model="username">
-                <input type="password" placeholder="密码" v-model="password" @keyup.enter="getToken">
-                <div class="submit" @click="getToken">登录</div>
+                <input type="text" placeholder="Username" v-model="username">
+                <input type="password" placeholder="Password" v-model="password" @keyup.enter="getToken">
+                <div class="submit" @click="getToken">Login</div>
             </div>
         </div>
     </div>
@@ -105,5 +105,6 @@
     text-align: center;
     background: #e56845;
     color: white;
+    cursor: pointer;
 }
 </style>

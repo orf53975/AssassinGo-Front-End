@@ -2,11 +2,11 @@
     <TabBlock :Tab="Tab">
         <div class="poc-container">
             <div class="poc-search-container">
-                <input type="text" class="poc-search-input" placeholder="TARGET" v-model="target">
                 <select class="poc-page-size-input" v-model="poc">
                     <option value="" selected disabled>CHOOSE POC</option>
                     <option v-for="(value, key) in pocs" :key="key" :value="key">{{key}}</option>
                 </select>
+                <input type="text" class="poc-search-input" placeholder="TARGET" v-model="target">
                 <div class="poc-search" @click="doPoc">
                     ATTACK
                 </div>
@@ -203,7 +203,7 @@ export default {
 }
 .poc-page-size-input {
     width: 200px;
-    border-left: none;
+    border-radius: 0px;
 }
 .poc-search-input:focus {
     outline: none;
@@ -212,7 +212,6 @@ export default {
 .poc-page-size-input:focus {
     outline: none;
     border: 1px solid gray;
-    border-left: none;
 }
 .poc-options-container {
     display: none;
@@ -229,8 +228,6 @@ export default {
     box-sizing: border-box;
     border: 1px solid gray;
     border-left: none;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 .poc-checkbox {
     margin: 0 15px;

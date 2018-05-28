@@ -9,7 +9,7 @@
             <div>IP: <span>{{ip == "" ? "Unknown" : ip}}</span></div>
             <div class="basic-server">Server: <span>{{server == "" ? "Unknown" : server}}</span></div>
             <div>CMS: <span>{{cms == "" ? "Unknown" : cms}}</span></div>
-            <div>RealIP: <span>{{realip == "" ? "Unknown" : realip}}</span></div>
+            <div v-if="server == 'cloudflare'">RealIP: <span>{{realip == "" ? "Unknown" : realip}}</span></div>
         </div>
         <div class="base-main-container">
             <div class="base-whois">
@@ -17,31 +17,31 @@
                 <div class="base-whois-main">
                     <div>
                         <div>Domain:</div>
-                        <div>{{whois.domain == ""   ? "Unknown" : whois.domain}} </div>
+                        <div>{{whois.domain == "" || whois.domain == undefined ? "Unknown" : whois.domain}} </div>
                     </div>
                     <div>
                         <div>Registrar:</div>
-                        <div> {{whois.registrar_name == "" ? "Unknown" : whois.registrar_name}} </div>
+                        <div> {{whois.registrar_name == "" || whois.registrar_name == undefined ? "Unknown" : whois.registrar_name}} </div>
                     </div>
                     <div>
                         <div>Admin:</div>
-                        <div>{{whois.admin_name == "" ? "Unknown" : whois.admin_name}}</div>
+                        <div>{{whois.admin_name == "" || whois.admin_name == undefined ? "Unknown" : whois.admin_name}}</div>
                     </div>
                     <div>
                         <div>Email:</div>
-                        <div>{{whois.admin_email == "" ? "Unknown" : whois.admin_email}}</div>
+                        <div>{{whois.admin_email == "" || whois.admin_email == undefined ? "Unknown" : whois.admin_email}}</div>
                     </div>
                     <div>
                         <div>Phone:</div>
-                        <div>{{whois.admin_phone == "" ? "Unknown" : whois.admin_phone}}</div>
+                        <div>{{whois.admin_phone == "" || whois.admin_phone == undefined ? "Unknown" : whois.admin_phone}}</div>
                     </div>
                     <div>
                         <div>Created Date:</div>
-                        <div>{{whois.created_date == "" ? "Unknown" : whois.created_date}}</div>
+                        <div>{{whois.created_date == "" || whois.created_date == undefined ? "Unknown" : whois.created_date}}</div>
                     </div>
                     <div>
                         <div>Expiration Date:</div>
-                        <div>{{whois.expiration_date == "" ? "Unknown" : whois.expiration_date}}</div>
+                        <div>{{whois.expiration_date == "" || whois.expiration_date == undefined ? "Unknown" : whois.expiration_date}}</div>
                     </div>
                     <div>
                         <div>DNS:</div>
@@ -49,7 +49,7 @@
                     </div>
                     <div>
                         <div>State:</div>
-                        <div>{{whois.state == "" ? "Unknown" :  whois.state}}</div>
+                        <div>{{whois.state == "" || whois.state == undefined ? "Unknown" :  whois.state}}</div>
                     </div>
                 </div>
             </div>

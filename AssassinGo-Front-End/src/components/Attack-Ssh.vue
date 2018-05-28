@@ -18,7 +18,7 @@
 <script>
 import TabBlock from './TabBlock'
 export default {
-    name: 'Ssh',
+    name: 'SSH',
     components: {
         TabBlock,
     },
@@ -104,7 +104,8 @@ export default {
     height: 100%;
     flex-grow: 1;
     text-align: left;
-    overflow-x: scroll;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 .ssh-table-item > div:first-of-type {
     width: 100px;

@@ -18,7 +18,7 @@
 <script>
 import TabBlock from './TabBlock'
 export default {
-    name: 'Sql',
+    name: 'SQLI',
     components: {
         TabBlock,
     },
@@ -61,6 +61,7 @@ export default {
     height: 607px;
     box-sizing: border-box;
     padding: 50px;
+    overflow: auto;
 }
 .sql-table-top {
     height: 60px;
@@ -101,7 +102,8 @@ export default {
     height: 100%;
     flex-grow: 1;
     text-align: left;
-    overflow-x: scroll;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 .sql-table-item > div:first-of-type {
     width: 100px;

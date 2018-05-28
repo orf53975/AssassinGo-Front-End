@@ -22,7 +22,8 @@
     height: 700px;
     width: 1200px;
     border-radius: 2px;
-    box-shadow: 0 0 3px rgb(0, 0, 0);
+    box-shadow: 0 0 40px rgb(220, 220, 220);
+    background: white;
     /* transform: translate3d(0, 0, 0); */
     /* animation: slip 1s cubic-bezier(.23,.97,1,1.11); */
 }

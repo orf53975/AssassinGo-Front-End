@@ -73,6 +73,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: white;
     /* border-top: 1px solid rgb(226, 226, 226); */
     /* box-shadow: 0 0 4px gray; */
 }
@@ -83,7 +84,7 @@ export default {
     line-height: 30px;
     text-align: center;
     margin: 0 20px;
-    background: white;
+    /* background: white; */
     color: black;
     cursor: pointer;
 }
@@ -104,6 +105,8 @@ export default {
     justify-content: center;
     align-items: center;
     background: white;
+    /* background: url("../../static/images/back2.jpg") no-repeat; */
+    background-size: cover;
 }
 .tab-main > i {
     color: black;
