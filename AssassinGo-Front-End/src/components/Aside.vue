@@ -1,5 +1,5 @@
 <template>
-    <div class="aside-container" v-if="menu != 'login'">
+    <div class="aside-container" v-if="route != 'login'">
         <div class="aside">
             <div class="aside-head-container">
                 <div class="aside-head-icon" @click="jump2Login">
@@ -11,7 +11,7 @@
             </div>
             <div class="aside-icon-group">
                 <router-link tag="div" class="aside-icon-item" to="/home">
-                    <div class="aside-icon-svg" v-if="menu == 'home'">
+                    <div class="aside-icon-svg" v-if="route == 'home'">
                         <img src="../../static/icons/home2.svg">
                     </div>
                     <div class="aside-icon-svg" v-else>
@@ -20,7 +20,7 @@
                     <div class="aside-icon-name">Home</div>
                 </router-link>
                 <router-link tag="div" class="aside-icon-item" to="/recon">
-                    <div class="aside-icon-svg" v-if="menu == 'recon'">
+                    <div class="aside-icon-svg" v-if="route == 'recon'">
                         <img src="../../static/icons/eyes2.svg">
                     </div>
                     <div class="aside-icon-svg" v-else>
@@ -29,7 +29,7 @@
                     <div class="aside-icon-name">Recon</div>
                 </router-link>
                 <router-link tag="div" class="aside-icon-item" to="/attack">
-                    <div class="aside-icon-svg" v-if="menu == 'attack'">
+                    <div class="aside-icon-svg" v-if="route == 'attack'">
                         <img src="../../static/icons/sword2.svg">
                     </div>
                     <div class="aside-icon-svg" v-else>
@@ -38,7 +38,7 @@
                     <div class="aside-icon-name">Attack</div>
                 </router-link>
                 <router-link tag="div" class="aside-icon-item" to="/assassinate">
-                    <div class="aside-icon-svg" v-if="menu == 'assassinate'">
+                    <div class="aside-icon-svg" v-if="route == 'assassinate'">
                         <img src="../../static/icons/ghost2.svg">
                     </div>
                     <div class="aside-icon-svg" v-else>
@@ -47,7 +47,7 @@
                     <div class="aside-icon-name">Assassinate</div>
                 </router-link>
                 <router-link tag="div" class="aside-icon-item" to="/seek">
-                    <div class="aside-icon-svg" v-if="menu == 'seek'">
+                    <div class="aside-icon-svg" v-if="route == 'seek'">
                         <img src="../../static/icons/search2.svg">
                     </div>
                     <div class="aside-icon-svg" v-else>
@@ -68,11 +68,9 @@
 
 <script>
     export default {
-        props: {
-            menu: String,
-        },
         data() {
             return {
+                route: this.$route.name
             }
         },
         methods: {
@@ -82,9 +80,11 @@
                 })
             }
         },
-        created () {
-
-        }
+        watch: {
+            $route () {
+                this.route = this.$route.name;
+            }
+        },
     }
 </script>
 
@@ -97,7 +97,7 @@
     top: 0;
     left: 0;
     background: white;
-    box-shadow: -1px 0 3px gray;
+    box-shadow: -1px 0 40px rgb(220, 220, 220);
     box-sizing: border-box;
     padding: 40px 0;
     z-index: 100;

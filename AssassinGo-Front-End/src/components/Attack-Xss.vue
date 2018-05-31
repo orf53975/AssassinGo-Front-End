@@ -1,5 +1,5 @@
 <template>
-    <TabBlock :Tab="Tab" v-show="show">
+    <TabBlock :Tab="Tab" v-show="show" @refresh="refresh">
         <div class="xss-container">
             <div class="xss-table-top">
                 <div>#</div>
@@ -28,6 +28,7 @@ export default {
             Tab: {
                 title: 'Attack',
                 subtitle: 'xss',
+                refresh: true,
             },
             urls: [],
         }
@@ -43,12 +44,18 @@ export default {
         },
         addXss (data) {
             this.urls.push(data.xssi_url);
+        },
+        refresh (msg) {
+            if(msg === true) {
+                this.showXss();
+            }
         }
     },
     watch: {
         show: function () {
-            if(this.show == true) {
+            if(this.show == true && this.loadStatus.attackXssiAlreadyLoad != true) {
                 this.showXss();
+                this.loadStatus.load('attackXssiAlreadyLoad');
             }
         }
     }

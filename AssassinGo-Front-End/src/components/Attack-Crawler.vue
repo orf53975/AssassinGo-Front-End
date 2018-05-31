@@ -1,5 +1,5 @@
 <template>
-    <TabBlock :Tab="Tab" v-show="show">
+    <TabBlock :Tab="Tab" v-show="show" @refresh="refresh">
         <div class="crawler-container">
             <div class="crawler-table-top">
                 <div>#</div>
@@ -28,6 +28,7 @@ export default {
             Tab: {
                 title: 'Attack',
                 subtitle: 'crawler',
+                refresh: true,
             },
             urls: [],
         }
@@ -43,12 +44,18 @@ export default {
         },
         addCrawler (data) {
             this.urls.push(data.url);
+        },
+        refresh (msg) {
+            if(msg === true) {
+                this.showCrawler();
+            }
         }
     },
     watch: {
         show: function () {
-            if(this.show == true) {
+            if(this.show == true && this.loadStatus.attackCrawlerAlreadyLoad != true) {
                 this.showCrawler();
+                this.loadStatus.load('attackCrawlerAlreadyLoad');
             }
         }
     }

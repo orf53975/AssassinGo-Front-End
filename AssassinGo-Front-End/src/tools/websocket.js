@@ -1,4 +1,4 @@
-const base = "ws://assassin-go.ink/ws";
+const base = "ws://assassin-go.ink:8000/ws";
 
 export default {
     install: function(Vue, options) {
@@ -19,7 +19,7 @@ export default {
                 success(JSON.parse(e.data));
             };
             ws.onclose = () => {
-                console.log('WebSocket Close.')
+                // console.log('WebSocket Close.')
             };
             ws.onerror = (e) => {
                 console.log(e);

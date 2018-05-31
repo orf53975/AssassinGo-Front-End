@@ -24,9 +24,6 @@ export default {
         Crawler,
         Ssh
     },
-    created () {
-        this.$emit("menu", "attack");
-    }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <TabBlock :Tab="Tab" v-show="show">
+    <TabBlock :Tab="Tab" v-show="show" @refresh="refresh">
         <div class="ssh-container">
             <div class="ssh-table-top">
                 <div>#</div>
@@ -28,6 +28,7 @@ export default {
             Tab: {
                 title: 'Attack',
                 subtitle: 'ssh',
+                refresh: true,
             },
             results: [],
         }
@@ -46,12 +47,19 @@ export default {
         },
         addSsh (data) {
             this.results.push(data);
+        },
+        refresh (msg) {
+            if(msg === true) {
+                this.showSsh();
+            }
         }
     },
     watch: {
         show: function () {
-            if(this.show == true) {
+            if(this.show == true && this.loadStatus.attackSshAlreadyLoad != true) {
                 this.showSsh();
+                this.alreadyLoad = true;
+                this.loadStatus.load('attackSshAlreadyLoad');
             }
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <TabBlock :Tab="Tab" v-show="show">
+    <TabBlock :Tab="Tab" v-show="show" @refresh="refresh">
         <div class="base-top-container">
             <div class="base-probability" title="Honeypot Score">
                 <div class="probability-info">Honeypot Score</div>
@@ -131,6 +131,7 @@ export default {
             Tab: {
                 title: 'Recon',
                 subtitle: 'base',
+                refresh: true,
             },
             ip: "",
             server: "",
@@ -223,19 +224,55 @@ export default {
                     this.realip = response.data.real_ip;
                 }
             })
-        }
-    },
-    watch: {
-        show: function () {
-            if(this.show == true) {
+        },
+        refresh (msg) {
+            if(msg === true) {
+                this.ip = "";
+                this.server = "";
+                this.cms = "";
+                this.whois = "";
+                this.realip = "";
+                this.score = 0;
+                this.acceptPorts = [];
+                this.click_jacking_protection = "Unknown";
+                this.content_security_policy = "Unknown";
+                this.strict_transport_security = "Unknown";
+                this.x_content_type_options = "Unknown";
+                this.alreadyLoad = false;
                 this.getBasic();
                 this.getCms();
                 this.getWhoIs();
                 this.getHoneyPot();
                 this.getPortStatus();
+                this.alreadyLoad = true;
             }
-        }
-    }
+        },
+    },
+    watch: {
+        show () {
+            if(this.show == true && this.loadStatus.reconBaseAlreadyLoad != true) {
+                this.getBasic();
+                this.getCms();
+                this.getWhoIs();
+                this.getHoneyPot();
+                this.getPortStatus();
+                this.loadStatus.load('reconBaseAlreadyLoad');
+            }
+        },
+    },
+    // created () {
+    //     if(this.ip != "" && this.ip != undefined) {
+    //         console.log(this.ip);
+    //     }
+    //     else {
+    //         console.log("ajax");
+    //         this.getBasic();
+    //         this.getCms();
+    //         this.getWhoIs();
+    //         this.getHoneyPot();
+    //         this.getPortStatus();
+    //     }
+    // }
 }
 </script>
 
@@ -245,11 +282,11 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 10px;
+    margin: 10px
 }
 .base-top-container > div {
     height: 100px;
-    width: 240px;
+    width: 25%;
     line-height: 100px;
     white-space: nowrap;
 }
@@ -295,7 +332,7 @@ export default {
     margin-top: 40px;
 }
 .base-whois {
-    width: 400px;
+    width: 34%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -325,11 +362,15 @@ export default {
     justify-content: space-between;
     align-items: center;
 }
+.base-whois-main > div > div:first-of-type {
+    text-align: left;
+}
 .base-whois-main > div > div:last-of-type {
     color: #e56845;
+    text-align: right;
 }
 .base-port-scan {
-    width: 340px;
+    width: 33%;
     height: 100%;
     display: flex;
     overflow: hidden;
@@ -408,7 +449,7 @@ export default {
 }
 .security-header-container {
     height: 100%;
-    width: 400px;
+    width: 33%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

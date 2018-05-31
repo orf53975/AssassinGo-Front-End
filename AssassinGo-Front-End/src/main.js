@@ -6,12 +6,14 @@ import router from './router'
 import Ajax from './tools/ajax'
 import Cookie from './tools/cookie'
 import Websocket from './tools/websocket'
+import LoadStatus from './tools/loadStatus'
 import 'font-awesome/css/font-awesome.css'
 import '../static/css/base.css'
 
 Vue.use(Ajax);
 Vue.use(Websocket);
 Vue.use(Cookie);
+Vue.use(LoadStatus);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

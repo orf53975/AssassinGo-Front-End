@@ -7,9 +7,9 @@
                 </div>
             </div>
             <div class="tab-main">
-                <i class="fa fa-chevron-left fa-3x" :style="{'visibility': beforeTab != undefined ? 'visible' : 'hidden'}" @click="changeTab(beforeTab)"></i>
+                <i class="fa fa-chevron-left fa-2x" :style="{'visibility': beforeTab != undefined ? 'visible' : 'hidden'}" @click="changeTab(beforeTab)"></i>
                 <slot></slot>
-                <i class="fa fa-chevron-right fa-3x" :style="{'visibility': afterTab != undefined ? 'visible' : 'hidden'}" @click="changeTab(afterTab)"></i>
+                <i class="fa fa-chevron-right fa-2x" :style="{'visibility': afterTab != undefined ? 'visible' : 'hidden'}" @click="changeTab(afterTab)"></i>
             </div>
         </div>
     </div>
@@ -39,6 +39,8 @@ export default {
         },
         getTabs () {
             this.currentTabName = this.$children[0].$options.name;
+            this.tabNames = [];
+            this.tabs = [];
             this.$children.filter( item => {
                 this.tabs.push(item);
                 this.tabNames.push(item.$options.name);
@@ -46,14 +48,26 @@ export default {
             this.setShowStatus();
         },
         setShowStatus () {
+            console.log(this.currentTabName);
             this.tabs.forEach((tab, index) => {
                 tab.show = (tab.$options.name == this.currentTabName)
             })
-        }
+        },
     },
     mounted () {
         this.getTabs();
-    }
+    },
+    watch: {
+        '$route': function () {
+            if(this.$route.name == "home") {
+                this.currentTabName = "";
+                this.setShowStatus();
+            }
+            else {
+                this.getTabs()
+            }
+        }
+    },
 }
 </script>
 

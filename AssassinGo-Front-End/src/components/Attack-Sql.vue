@@ -1,5 +1,5 @@
 <template>
-    <TabBlock :Tab="Tab" v-show="show">
+    <TabBlock :Tab="Tab" v-show="show" @refresh="refresh">
         <div class="sql-container">
             <div class="sql-table-top">
                 <div>#</div>
@@ -28,6 +28,7 @@ export default {
             Tab: {
                 title: 'Attack',
                 subtitle: 'sql',
+                refresh: true,
             },
             urls: [],
         }
@@ -43,12 +44,19 @@ export default {
         },
         addSql (data) {
             this.urls.push(data.sqli_url);
+        },
+        refresh (msg) {
+            if(msg === true) {
+                this.showSql();
+            }
         }
     },
     watch: {
         show: function () {
-            if(this.show == true) {
+            if(this.show == true && this.loadStatus.attackSqliAlreadyLoad != true) {
                 this.showSql();
+                this.alreadyLoad = true;
+                this.loadStatus.load('attackSqliAlreadyLoad');
             }
         }
     }

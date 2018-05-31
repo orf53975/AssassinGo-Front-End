@@ -1,5 +1,5 @@
 <template>
-    <TabBlock :Tab="Tab" v-show="show">
+    <TabBlock :Tab="Tab" v-show="show" @refresh="refresh">
         <div class="subdomain-container">
             <div class="subdomain-table-top">
                 <div>#</div>
@@ -28,6 +28,7 @@ export default {
             Tab: {
                 title: 'Recon',
                 subtitle: 'subdomain',
+                refresh: true,
             },
             subdomains: [],
         }
@@ -43,12 +44,18 @@ export default {
         },
         addSubdomain (data) {
             this.subdomains.push(data.subdomain);
+        },
+        refresh (msg) {
+            if(msg === true) {
+                this.showSubdomain();
+            }
         }
     },
     watch: {
         show: function () {
-            if(this.show == true) {
+            if(this.show == true && this.loadStatus.reconSubdomainAlreadyLoad != true) {
                 this.showSubdomain();
+                this.loadStatus.load('reconSubdomainAlreadyLoad');
             }
         }
     }

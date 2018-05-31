@@ -3,17 +3,17 @@
         <div class="inturder-container">
             <div class="inturder-result">
                 <div class="inturder-result-top-container">
-                    <!-- <div>id</div> -->
+                    <div>#</div>
                     <div class="inturder-result-top-payload">PAYLOAD</div>
                     <div>STATUS</div>
                     <div>LENGTH</div>
                 </div>
                 <div class="inturder-result-main">
-                    <div class="inturder-result-item" v-for="result in inturderResult" :key="result.payload">
-                        <!-- <div>{{i}}</div> -->
-                        <div class="inturder-result-top-payload">{{result.payload}}</div>
-                        <div>{{result.resp_status}}</div>
-                        <div>{{result.resp_len}}</div>
+                    <div class="inturder-result-item" v-for="(item, index) in inturderResult" :key="index">
+                        <div>{{index}}</div>
+                        <div class="inturder-result-top-payload">{{item.payload}}</div>
+                        <div>{{item.resp_status}}</div>
+                        <div>{{item.resp_len}}</div>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@ export default {
     background: white;
 }
 .inturder-result-item:nth-of-type(2n-1) {
-    background: gray;
+    background: rgb(220, 220, 220);
 }
 .inturder-header {
     height: 100%;

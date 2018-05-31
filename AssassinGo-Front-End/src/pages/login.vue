@@ -45,9 +45,6 @@
                 })
             }
         },
-        created () {
-            this.$emit("menu", "login");
-        }
     }
 </script>
 

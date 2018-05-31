@@ -1,5 +1,5 @@
 <template>
-    <TabBlock :Tab="Tab" v-show="show">
+    <TabBlock :Tab="Tab" v-show="show" @refresh="refresh">
         <div class="map-container">
             <div id="map">
                 获取不到Google Map
@@ -42,6 +42,7 @@ export default {
             Tab: {
                 title: 'Recon',
                 subtitle: 'traceroute',
+                refresh: true,
             },
             traceRoute: [],
             map: "",
@@ -80,20 +81,10 @@ export default {
                 zoom: 8
             });
 
-            //Markder Collect
-            let markers = []
-            // let myIconUrl = "../../static/icons/spider.svg";
-            // let myIcon = {
-            //     url: myIconUrl,
-            //     size: new google.maps.Size(40, 40),
-            //     origin: new google.maps.Point(0, 0),
-            //     anchor: new google.maps.Point(20, 20),
-            // };
             for(let i = 0; i < routePosition.length; i++) {
                 markers.push(new google.maps.Marker({
                     position: routePosition[i],
                     map: map,
-                    // icon: myIcon,
                 }));
             }
 
@@ -109,11 +100,12 @@ export default {
         },
         getTraceRoute () {
             const url = '/info/tracert';
+            this.traceRoute = [];
             this.ws(url, undefined, this.addTraceRoute);
         },
         addTraceRoute (data) {
-            this.traceRoute.push(data);
             if(data.lat != 0 && data.long != 0) {
+                this.traceRoute.push(data);
                 this.drawLine();
             }
         },
@@ -124,16 +116,21 @@ export default {
                 zoom: 8
             });
         },
-    },
-    watch: {
-        show: function () {
-            if(this.show == true) {
+        refresh (msg) {
+            if(msg === true) {
+                this.createMap();
                 this.getTraceRoute();
             }
         }
     },
-    mounted () {
-        this.createMap();
+    watch: {
+        show: function () {
+            if(this.show == true && this.loadStatus.reconTraceRouteAlreadyLoad != true) {
+                this.createMap();
+                this.getTraceRoute();
+                this.loadStatus.load('reconTraceRouteAlreadyLoad');
+            }
+        }
     },
 }
 </script>

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Aside :menu="menu"></Aside>
-    <router-view id="main" @menu="changeAside"/>
+    <Aside></Aside>
+    <keep-alive>
+      <router-view id="main"/>
+    </keep-alive>
   </div>
 </template>
 
@@ -12,16 +14,6 @@ export default {
   components: {
     Aside,
   },
-  data() {
-    return {
-      menu: "home",
-    }
-  },
-  methods: {
-    changeAside (msg) {
-      this.menu = msg;
-    }
-  }
 }
 </script>
 

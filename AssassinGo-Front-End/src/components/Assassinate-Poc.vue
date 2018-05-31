@@ -16,27 +16,27 @@
                     <div class="poc-title">POC INFO</div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Date</div>
-                        <div>{{pocs[poc].date == "" ? "Unknown" : pocs[poc].date}}</div>
+                        <div>{{pocs[poc].date == "" || pocs[poc].date == undefined ? "Unknown" : pocs[poc].date}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>ID</div>
-                        <div>{{pocs[poc].id == "" ? "Unknown" : pocs[poc].id}}</div>
+                        <div>{{pocs[poc].id == "" || pocs[poc].id == undefined ? "Unknown" : pocs[poc].id}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Platform</div>
-                        <div>{{pocs[poc].platform == "" ? "Unknown" : pocs[poc].platform}}</div>
+                        <div>{{pocs[poc].platform == "" || pocs[poc].platform == undefined ? "Unknown" : pocs[poc].platform}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Reference</div>
-                        <div>{{pocs[poc].reference == "" ? "Unknown" : pocs[poc].reference}}</div>
+                        <div>{{pocs[poc].reference == "" || pocs[poc].reference == undefined ? "Unknown" : pocs[poc].reference}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Text</div>
-                        <div>{{pocs[poc].text == "" ? "Unknown" : pocs[poc].text}}</div>
+                        <div>{{pocs[poc].text == "" || pocs[poc].text == undefined ? "Unknown" : pocs[poc].text}}</div>
                     </div>
                     <div class="poc-info-item" v-if="poc != ''">
                         <div>Type</div>
-                        <div>{{pocs[poc].type == "" ? "Unknown" : pocs[poc].type}}</div>
+                        <div>{{pocs[poc].type == "" || pocs[poc].type == undefined ? "Unknown" : pocs[poc].type}}</div>
                     </div>
                 </div>
                 <div class="poc-result-container">

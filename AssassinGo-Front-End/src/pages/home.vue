@@ -56,6 +56,7 @@ export default {
                     if(response.flag == 1) {
                         //本地储存target
                         sessionStorage.setItem("target", data.target);
+                        this.loadStatus.clear();
                         //$router为全局的路由，将/recon压进全局路由进行跳转
                         this.$router.push({
                             path: '/recon',
@@ -71,9 +72,6 @@ export default {
             }
         },
     },
-    created () {
-        this.$emit("menu", "home");
-    }
 }
 </script>
 

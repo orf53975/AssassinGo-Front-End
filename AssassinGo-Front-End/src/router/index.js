@@ -21,7 +21,7 @@ const route = new Router({
     }, {
       path: '/home',
       name: 'home',
-      component: home
+      component: home,
     }, {
       path: '/recon',
       name: 'recon',

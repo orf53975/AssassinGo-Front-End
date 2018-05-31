@@ -21,10 +21,18 @@ export default {
             Tab: {
                 title: 'Recon',
                 subtitle: 'sitemap',
+                refresh: false,
             },
             target: sessionStorage.getItem("target"),
         }
     },
+    watch: {
+        show: function () {
+            if(this.show == true) {
+                this.target = sessionStorage.getItem("target");
+            }
+        }
+    }
 }
 </script>
 

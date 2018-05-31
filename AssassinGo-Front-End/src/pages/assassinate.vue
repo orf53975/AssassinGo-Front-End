@@ -12,9 +12,6 @@ export default {
         Tab,
         Poc,
     },
-    created () {
-        this.$emit("menu", "assassinate");
-    }
 }
 </script>
 

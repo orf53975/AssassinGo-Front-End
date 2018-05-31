@@ -1,6 +1,6 @@
 <template>
     <Tab>
-        <ReconBase></ReconBase>
+        <ReconBase></ReconBase>     
         <ReconTraceRoute></ReconTraceRoute>
         <ReconSiteMap></ReconSiteMap>
         <ReconDirb></ReconDirb>
@@ -24,9 +24,6 @@ export default {
         ReconDirb,
         ReconSubdomain,
     },
-    created () {
-        this.$emit("menu", "recon");
-    }
 }
 </script>
 
