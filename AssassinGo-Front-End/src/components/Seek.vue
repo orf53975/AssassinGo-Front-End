@@ -87,7 +87,9 @@ export default {
         hosts () {
             let temp = [];
             for(let i in this.urls) {
-                temp.push(/^(http|https):\/\/[0-9a-zA-z\.]+\//.exec(this.urls[i])[0]);
+                if(/^(http|https):\/\/[0-9a-zA-z\.]+\//.test(this.urls[i])) {
+                    temp.push(/^(http|https):\/\/[0-9a-zA-z\.]+\//.exec(this.urls[i])[0]);
+                }
             }
             return temp;
         }

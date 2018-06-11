@@ -80,6 +80,7 @@ export default {
                 center: myLatLng,
                 zoom: 8
             });
+            let markers = [];
 
             for(let i = 0; i < routePosition.length; i++) {
                 markers.push(new google.maps.Marker({
@@ -105,8 +106,23 @@ export default {
         },
         addTraceRoute (data) {
             if(data.lat != 0 && data.long != 0) {
-                this.traceRoute.push(data);
-                this.drawLine();
+                let flag = 1;
+                if(this.traceRoute.length > 0) {
+                    for(let i in this.traceRoute) {
+                        if(this.traceRoute[i].lat == data.lat && this.traceRoute[i].long == data.long) {
+                            flag = 0;
+                            break;
+                        }
+                    }
+                    if(flag == 1) {
+                        this.traceRoute.push(data);
+                        this.drawLine();
+                    }
+                }
+                else {
+                    this.traceRoute.push(data);
+                    this.drawLine();
+                }
             }
         },
         createMap () {

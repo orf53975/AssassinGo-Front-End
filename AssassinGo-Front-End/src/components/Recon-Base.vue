@@ -59,40 +59,40 @@
                     <div>Click-Jacking Protection</div>
                     <div v-if="click_jacking_protection == 'Unknown'">{{click_jacking_protection}}</div>
                     <div v-if="click_jacking_protection == true">
-                        <i class="fa fa-check fa-lg"></i>
+                        <i class="fa fa-check fa-lg header-true"></i>
                     </div>
                     <div v-if="click_jacking_protection == false">
-                        <i class="fa fa-close fa-lg"></i>
+                        <i class="fa fa-close fa-lg header-false"></i>
                     </div>
                 </div>
                 <div>
                     <div>Content-Security-Policy</div>
                     <div v-if="content_security_policy == 'Unknown'">{{content_security_policy}}</div>
                     <div v-if="content_security_policy == true">
-                        <i class="fa fa-check fa-lg"></i>
+                        <i class="fa fa-check fa-lg header-true"></i>
                     </div>
                     <div v-if="content_security_policy == false">
-                        <i class="fa fa-close fa-lg"></i>
+                        <i class="fa fa-close fa-lg header-false"></i>
                     </div>
                 </div>
                 <div>
                     <div>Strict Transport Security</div>
                     <div v-if="strict_transport_security == 'Unknown'">{{strict_transport_security}}</div>
                     <div v-if="strict_transport_security == true">
-                        <i class="fa fa-check fa-lg"></i>
+                        <i class="fa fa-check fa-lg header-true"></i>
                     </div>
                     <div v-if="strict_transport_security == false">
-                        <i class="fa fa-close fa-lg"></i>
+                        <i class="fa fa-close fa-lg header-false"></i>
                     </div>
                 </div>
                 <div>
                     <div>X-Content-Type-Options</div>
                     <div v-if="x_content_type_options == 'Unknown'">{{x_content_type_options}}</div>
                     <div v-if="x_content_type_options == true">
-                        <i class="fa fa-check fa-lg"></i>
+                        <i class="fa fa-check fa-lg header-true"></i>
                     </div>
                     <div v-if="x_content_type_options == false">
-                        <i class="fa fa-close fa-lg"></i>
+                        <i class="fa fa-close fa-lg header-false"></i>
                     </div>
                 </div>
             </div>
@@ -472,5 +472,11 @@ export default {
     width: 100% !important;
     font-size: 36px !important;
     justify-content: center !important;
+}
+.header-true {
+    color: rgb(34, 112, 34);
+}
+.header-false {
+    color: rgb(184, 49, 49);
 }
 </style>

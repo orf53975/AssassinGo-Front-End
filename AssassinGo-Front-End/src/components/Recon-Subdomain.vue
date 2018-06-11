@@ -93,7 +93,7 @@ export default {
     background: rgb(220, 220, 220);
 }
 .subdomain-table-main {
-    height: 447px;
+    height: 435px;
     width: 100%;
 }
 .subdomain-table-item {
